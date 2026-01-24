@@ -1,11 +1,12 @@
 import 'package:jaspr/dom.dart';
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr_router/jaspr_router.dart';
+import 'package:my_portfolio/pages/contact.dart';
 
 import 'components/header.dart';
 import 'pages/about.dart';
 import 'pages/home.dart';
-
+import 'pages/projects.dart';
 // The main component of your application.
 //
 // By using multi-page routing, this component will only be built on the server during pre-rendering and
@@ -22,7 +23,10 @@ class App extends StatelessComponent {
       const Header(),
       Router(routes: [
         Route(path: '/', title: 'Home', builder: (context, state) => const Home()),
+        Route(path: '/projects', title: 'projects', builder: (context, state) => const projects()),
         Route(path: '/about', title: 'About', builder: (context, state) => const About()),
+        Route(path: '/contact', title: 'contact', builder: (context, state) => const contact()),
+  
       ]),
     ]);
   }
@@ -40,6 +44,7 @@ class App extends StatelessComponent {
         height: 100.vh,
         flexDirection: .column,
         flexWrap: .wrap,
+        backgroundColor: Colors.black,
       ),
       css('section').styles(
         display: .flex,
