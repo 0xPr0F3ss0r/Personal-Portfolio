@@ -6,8 +6,10 @@
 
 import 'package:jaspr/client.dart';
 
+import 'package:my_portfolio/components/header.dart' deferred as _header;
 import 'package:my_portfolio/pages/about.dart' deferred as _about;
 import 'package:my_portfolio/pages/home.dart' deferred as _home;
+import 'package:my_portfolio/widgets/toglethem.dart' deferred as _toglethem;
 
 /// Default [ClientOptions] for use with your Jaspr project.
 ///
@@ -27,7 +29,15 @@ import 'package:my_portfolio/pages/home.dart' deferred as _home;
 /// ```
 ClientOptions get defaultClientOptions => ClientOptions(
   clients: {
+    'header': ClientLoader(
+      (p) => _header.Header(),
+      loader: _header.loadLibrary,
+    ),
     'about': ClientLoader((p) => _about.About(), loader: _about.loadLibrary),
     'home': ClientLoader((p) => _home.Home(), loader: _home.loadLibrary),
+    'toglethem': ClientLoader(
+      (p) => _toglethem.ToggleTheme(),
+      loader: _toglethem.loadLibrary,
+    ),
   },
 );

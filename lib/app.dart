@@ -13,14 +13,20 @@ import 'pages/projects.dart';
 // **not** executed on the client. Instead only the nested [Home] and [About] components will be mounted on the client.
 class App extends StatelessComponent {
   const App({super.key});
+  
+ 
 
+ 
   @override
   Component build(BuildContext context) {
+    
     // This method is rerun every time the component is rebuilt.
     
     // Renders a <div class="main"> html element with children.
-    return div(classes: 'main', [
-      const Header(),
+    return div(styles: Styles(backgroundColor: Colors.red),classes: 'main', [
+    
+      link(href: 'https://fonts.googleapis.com/css2?family=DynaPuff&display=swap', rel: 'stylesheet'),
+      Header(),
       Router(routes: [
         Route(path: '/', title: 'Home', builder: (context, state) => const Home()),
         Route(path: '/projects', title: 'projects', builder: (context, state) => const projects()),
@@ -29,12 +35,8 @@ class App extends StatelessComponent {
   
       ]),
     ]);
+    
   }
-
-  // Defines the css styles for elements of this component.
-  //
-  // By using the @css annotation, these will be rendered automatically to css inside the <head> of your page.
-  // Must be a variable or getter of type [List<StyleRule>].
   @css
   static List<StyleRule> get styles => [
     css('.main', [
@@ -44,15 +46,22 @@ class App extends StatelessComponent {
         height: 100.vh,
         flexDirection: .column,
         flexWrap: .wrap,
-        backgroundColor: Colors.black,
+       backgroundColor:  Colors.black ,
       ),
-      css('section').styles(
-        display: .flex,
-        flexDirection: .column,
-        justifyContent: .center,
-        alignItems: .center,
-        flex: Flex(grow: 1),
-      ),
+      // css('section').styles(
+      //   display: .flex,
+      //   flexDirection: .column,
+      //   justifyContent: .center,
+      //   alignItems: .center,
+      //   flex: Flex(grow: 1),
+      // ),
     ]),
   ];
+  // Defines the css styles for elements of this component.
+  //
+  // By using the @css annotation, these will be rendered automatically to css inside the <head> of your page.
+  // Must be a variable or getter of type [List<StyleRule>].
+
+  
+
 }

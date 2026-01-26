@@ -1,7 +1,7 @@
 import 'package:jaspr/dom.dart';
 import 'package:jaspr/jaspr.dart';
 
-import '../constants/theme.dart';
+//import '../constants/theme.dart';
 import 'embedded_counter.dart';
 
 class Counter extends StatefulComponent {
@@ -47,7 +47,7 @@ class CounterState extends State<Counter> {
       css('&').styles(
         display: .flex,
         padding: .symmetric(vertical: 10.px),
-        border: .symmetric(vertical: .solid(color: primaryColor, width: 2.px)),
+        border: .symmetric(vertical: .solid( width: 2.px)),
         alignItems: .center,
       ),
       css('button', [
@@ -71,7 +71,7 @@ class CounterState extends State<Counter> {
         minWidth: 2.5.em,
         padding: .symmetric(horizontal: 2.rem),
         boxSizing: .borderBox, 
-        color: primaryColor, 
+       // color: primaryColor, 
         textAlign: .center,
         fontSize: 4.rem,
       ),

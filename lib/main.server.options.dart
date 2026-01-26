@@ -9,6 +9,7 @@ import 'package:my_portfolio/components/counter.dart' as _counter;
 import 'package:my_portfolio/components/header.dart' as _header;
 import 'package:my_portfolio/pages/about.dart' as _about;
 import 'package:my_portfolio/pages/home.dart' as _home;
+import 'package:my_portfolio/widgets/toglethem.dart' as _toglethem;
 import 'package:my_portfolio/app.dart' as _app;
 
 /// Default [ServerOptions] for use with your Jaspr project.
@@ -30,12 +31,14 @@ import 'package:my_portfolio/app.dart' as _app;
 ServerOptions get defaultServerOptions => ServerOptions(
   clientId: 'main.client.dart.js',
   clients: {
+    _header.Header: ClientTarget<_header.Header>('header'),
     _about.About: ClientTarget<_about.About>('about'),
     _home.Home: ClientTarget<_home.Home>('home'),
+    _toglethem.ToggleTheme: ClientTarget<_toglethem.ToggleTheme>('toglethem'),
   },
   styles: () => [
     ..._counter.CounterState.styles,
-    ..._header.Header.styles,
+    ..._header.HeaderState.styles,
     ..._about.About.styles,
     ..._app.App.styles,
   ],

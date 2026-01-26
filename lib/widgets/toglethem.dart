@@ -1,39 +1,52 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart';
-// import 'dart:html' as dom;
 
 @client
-class ToogleTheme extends StatefulComponent{
-  const ToogleTheme({super.key});
+class ToggleTheme extends StatefulComponent {
+  const ToggleTheme({super.key});
 
- @override
-  State<StatefulComponent> createState() => ToogleThemeState();
+  @override
+  State<StatefulComponent> createState() => _ToggleThemeState();
 }
 
-class ToogleThemeState extends State<ToogleTheme> {
+class _ToggleThemeState extends State<ToggleTheme> {
+  bool darkMode = true; // state is internal
+
   @override
   Component build(BuildContext context) {
     return button(
       classes: 'mode-button',
       attributes: {'aria-label': 'Toggle theme'},
       onClick: () {
-        // final currdocument = document.getElementsByClassName('data-theme');
-        // final currentTheme = currdocument.get('data-theme')== 'dark' ? 'dark' : 'light';
-        // final htmlElement = document.documentElement!;
-      //  htmlElement.setAttribute('data-theme', currentTheme == 'dark' ? 'light' : 'dark');
+        print("clicked");
+        // setState(() {
+        //   darkMode = !darkMode;
+        // });
       },
       [
-        img(
-          src: 'images/moon1.png',
-          alt: 'light/dark mode',
+        div(
           styles: Styles(
-            width: 100.percent,
-            height: 100.percent,
+            width: 40.px,
+            height: 40.px,
+            backgroundColor: darkMode ? Colors.black : Colors.white,
+            display: Display.flex,
+            alignItems: .center,
+            justifyContent: .center,
+            radius: .circular(20.px),
+            cursor: Cursor.pointer,
           ),
+          [
+            img(
+              src: 'images/moon1.png',
+              alt: 'light/dark mode',
+              styles: Styles(
+                width: 24.px,
+                height: 24.px,
+              ),
+            ),
+          ],
         ),
       ],
     );
   }
-  
- 
 }
