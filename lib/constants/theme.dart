@@ -1,5 +1,4 @@
 import 'package:jaspr/dom.dart';
-import 'package:jaspr/jaspr.dart';
 
 // ignore_for_file: non_constant_identifier_names
 

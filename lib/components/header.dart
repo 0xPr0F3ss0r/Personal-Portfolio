@@ -2,7 +2,7 @@ import 'package:jaspr/dom.dart';
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr_riverpod/jaspr_riverpod.dart';
 import 'package:jaspr_router/jaspr_router.dart';
-import 'package:my_portfolio/widgets/toglethem.dart';
+import 'package:my_portfolio/widgets/themtoggle.dart';
 import 'package:my_portfolio/state_management/light-dark-mode.dart' as state_management;
 import '../constants/theme.dart';
 
@@ -14,72 +14,105 @@ class Header extends StatelessComponent {
   Component build(BuildContext context) {
     var activePath = context.url;
     String currentMode = context.watch(state_management.mode);
-    return header(styles: Styles(
-      backgroundColor: currentMode == 'dark' ? Colors.black : Colors.white,
-    ),[
-      
-        Link(
-        to: '/',
-        child: img(
-          classes: 'header-logo',
-          src: 'images/Dinosor.png',
-          alt: 'Logo',
-          height: 150,
-          width: 150,
-        ),
+    return header(
+      styles: Styles(
+        backgroundColor: currentMode == 'dark' ? Colors.black : Colors.white,
       ),
-      nav([
-        for (var route in [
-          (label: 'Home', path: '/'),
-          (label: 'About', path: '/about'),
-          (label: 'Projects', path: '/projects'),
-          (label: 'Contact', path: '/contact'),
-
-        ])
-          div(classes: activePath == route.path ? 'active' : null, [
-            Link(to: route.path, child: .text(route.label)),
-          ]),
-      ]),
-     ToggleTheme(),
-
-    ]);
+      [
+        Link(
+          to: '/',
+          child: img(
+            classes: 'header-logo ${currentMode == 'dark' ? 'dark-mode' : 'light-mode'}',
+            src: 'images/Dinosor.png',
+            alt: 'Logo',
+            height: 150,
+            width: 150,
+            // styles: Styles(
+            //   raw: {
+            //     'filter': currentMode == 'dark' ? 'invert(1) brightness(1.5)' :'',
+            //   }
+            // )
+          ),
+        ),
+        nav([
+          for (var route in [
+            (label: 'Home', path: '/'),
+            (label: 'About', path: '/about'),
+            (label: 'Projects', path: '/projects'),
+            (label: 'Contact', path: '/contact'),
+          ])
+            div(classes: activePath == route.path ? 'active' : null, [
+              Link(to: route.path, child: .text(route.label)),
+            ]),
+        ]),
+        ThemeToggle(),
+      ],
+    );
   }
 
   @css
   static List<StyleRule> get styles => [
     css('header').styles(
-       display: .flex,
-  padding: .all(1.em),
-  alignItems: .center,
-  gap: Gap.all(20.px),
+      display: .flex,
+      padding: .all(1.em),
+      alignItems: .center,
+      gap: Gap.all(20.px),
     ),
     css('header .mode-button').styles(
-        padding: .zero,
-  margin: .only(left: .auto),
-  border: .none,
-  cursor: .pointer,
-  backgroundColor: Colors.transparent,
-      ),
-      css('header img.header-logo').styles(
-        radius: .circular(20.px),
-        raw: {
-          'transition': 'filter 0.5s ease-in 0.05s',
-        },
-      ),
+      padding: .zero,
+      margin: .only(left: .auto),
+      border: .none,
+      cursor: .pointer,
+      backgroundColor: Colors.transparent,
+    ),
+    css('header img.header-logo').styles(
+      radius: .circular(20.px),
+      raw: {
+        'transition': 'filter 0.2s ease-in 0s',
+      },
+    ),
 
-      css('header img.header-logo:hover').styles(
-        raw: {'filter': ' invert(50%) sepia(100%) saturate(1000%) hue-rotate(90deg) brightness(100%) contrast(100%)'},
-      ),
+    // css('header img.header-logo:hover').styles(
+    //   raw: {'filter': ' invert(50%) sepia(100%) saturate(1000%) hue-rotate(90deg) brightness(100%) contrast(100%)'},
+    // ),
+
+    //dark mode
+    css('header img.header-logo.dark-mode').styles(
+      raw: {
+        'filter': 'none',
+      },
+    ),
+
+    //light mode
+    css('header img.header-logo.light-mode').styles(
+      raw: {
+        //  'transition': 'filter 1s ease-in-out 0.05s',
+        'filter': 'brightness(0) saturate(100%) invert(0)',
+      },
+    ),
+    //dark mode hover
+    css('header img.header-logo.dark-mode:hover').styles(
+      raw: {
+        'filter': 'invert(50%) sepia(100%) saturate(1000%) hue-rotate(90deg) brightness(100%) contrast(100%)',
+      },
+    ),
+
+    //light mode hovre
+    css('header img.header-logo.light-mode:hover').styles(
+      raw: {
+        'filter': 'invert(50%) sepia(100%) saturate(1000%) hue-rotate(90deg) brightness(100%) contrast(100%)',
+      },
+    ),
+
     css('nav', [
-        css('&').styles(
-          display: .flex,
-          padding: Spacing.all(10.px),
-          radius: .all(.circular(10.px)),
-          overflow: .clip,
-          flexDirection: .row,
-          gap: Gap.all(30.px),
-        ),
-       
+      css('&').styles(
+        display: .flex,
+        padding: Spacing.all(10.px),
+        radius: .all(.circular(10.px)),
+        overflow: .clip,
+        flexDirection: .row,
+        gap: Gap.all(30.px),
+      ),
 
       css('p.name').styles(
         justifyContent: .right,
@@ -101,48 +134,48 @@ class Header extends StatelessComponent {
         backgroundColor: .currentColor,
       ),
 
-        css('a', [
-          css('&').styles(
-            display: .flex,
-            height: 100.percent,
-            padding: .symmetric(horizontal: 0.5.em),
-            alignItems: .center,
-            color: whiteColor,
-            fontFamily: FontFamily("DynaPuff"),
-            fontWeight: .w700,
-            textDecoration: TextDecoration(line: .none),
-          ),
-          css('&:hover', [
-            css('&::after').styles(
-              content: '',
-              display: .block,
-              position: .absolute(top: 50.percent, left: (-10).px),
-              width: 120.percent,
-              height: 4.px,
-              transform: Transform.translate(y: (-50).percent),
-              backgroundColor: blueColor,
-            ),
-          ]).styles(
-            display: .inlineBlock,
-            position: .relative(),
-          ),
-        ]),
-
-        css('div.active span', [
-          css('&').styles(
-            display: .inlineBlock,
-            position: .relative(),
-          ),
+      css('a', [
+        css('&').styles(
+          display: .flex,
+          height: 100.percent,
+          padding: .symmetric(horizontal: 0.5.em),
+          alignItems: .center,
+          color: whiteColor,
+          fontFamily: FontFamily("DynaPuff"),
+          fontWeight: .w700,
+          textDecoration: TextDecoration(line: .none),
+        ),
+        css('&:hover', [
           css('&::after').styles(
             content: '',
             display: .block,
             position: .absolute(top: 50.percent, left: (-10).px),
-            width: 150.percent,
+            width: 120.percent,
             height: 4.px,
             transform: Transform.translate(y: (-50).percent),
-            backgroundColor: whiteColor,
+            backgroundColor: blueColor,
           ),
-        ]),
-      ])];
-  
+        ]).styles(
+          display: .inlineBlock,
+          position: .relative(),
+        ),
+      ]),
+
+      css('div.active span', [
+        css('&').styles(
+          display: .inlineBlock,
+          position: .relative(),
+        ),
+        css('&::after').styles(
+          content: '',
+          display: .block,
+          position: .absolute(top: 50.percent, left: (-10).px),
+          width: 150.percent,
+          height: 4.px,
+          transform: Transform.translate(y: (-50).percent),
+          backgroundColor: whiteColor,
+        ),
+      ]),
+    ]),
+  ];
 }

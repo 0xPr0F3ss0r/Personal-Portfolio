@@ -10,6 +10,7 @@ import 'package:my_portfolio/pages/about.dart' as _about;
 import 'package:my_portfolio/pages/contact.dart' as _contact;
 import 'package:my_portfolio/pages/home.dart' as _home;
 import 'package:my_portfolio/pages/projects.dart' as _projects;
+import 'package:my_portfolio/widgets/themtoggle.dart' as _themtoggle;
 import 'package:my_portfolio/app.dart' as _app;
 
 /// Default [ServerOptions] for use with your Jaspr project.
@@ -40,6 +41,7 @@ ServerOptions get defaultServerOptions => ServerOptions(
   styles: () => [
     ..._header.Header.styles,
     ..._about.About.styles,
+    ..._themtoggle.ThemeToggle.styles,
     ..._app.App.styles,
   ],
 );

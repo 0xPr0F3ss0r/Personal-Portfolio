@@ -2,7 +2,6 @@ import 'package:jaspr/dom.dart';
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr_router/jaspr_router.dart';
 import 'package:my_portfolio/pages/contact.dart';
-import 'package:my_portfolio/widgets/main.wrapper.dart';
 
 import 'components/header.dart';
 import 'pages/about.dart';
@@ -18,7 +17,6 @@ class App extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    print('start build app');
     // print('mode value in app.dart: ${mode.value}');
     // This method is rerun every time the component is rebuilt.
 

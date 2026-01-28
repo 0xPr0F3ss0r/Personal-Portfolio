@@ -35,11 +35,12 @@ class _ToggleThemeState extends State<ToggleTheme> {
           ),
           [
             img(
-              src: 'images/moon1.png',
+              src: 'images/moon1.svg',
               alt: 'light/dark mode',
               styles: Styles(
                 width:65.px,
                 height: 65.px,
+                color: Colors.blue,
               ),
             ),
           ],
