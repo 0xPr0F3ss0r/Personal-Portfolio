@@ -20,11 +20,19 @@ class StartSection extends StatefulComponent {
       color: whiteColor,
       textAlign: TextAlign.start,
     ),
+    
     css('#start h1').styles(
       margin: Spacing.zero,
       fontSize: 1.5.rem,
+      
       raw: {
-        'transition': 'opacity 500ms ease-in-out',
+        '@keyframes fadeOut' :'''
+  from { opacity: 1; }
+  to { opacity: 0; }''',
+
+        'transition': 'opacity 2s cubic-bezier(0.25, 0.1, 0.25, 1)',
+        'animation': 'fadeOut 2s ease-in-out',
+        'animation-fill-mode': 'forwards',
       },
     ),
     css('#start h1.fade-out').styles(
@@ -69,20 +77,19 @@ class _StartSectionState extends State<StartSection> {
   @override
   void initState() {
     super.initState();
-
-    // Show Cyrillic first, then animate to KEBIR HANI
-    Future.delayed(const Duration(milliseconds: 100), () {
-      setState(() => filled = true);
-    });
-
-    // After 2 seconds, fade out Cyrillic and show KEBIR HANI
-    Future.delayed(const Duration(seconds: 2), () {
-      if (mounted) {
-        setState(() => showCyrillic = false);
-      }
-    });
-
     if (kIsWeb) {
+      // Show Cyrillic first, then animate to KEBIR HANI
+      Future.delayed(const Duration(milliseconds: 100), () {
+        setState(() => filled = true);
+      });
+
+      // After 2 seconds, fade out Cyrillic and show KEBIR HANI
+      Future.delayed(const Duration(seconds: 2), () {
+        if (mounted) {
+          setState(() => showCyrillic = false);
+        }
+      });
+
       _timer = Timer.periodic(const Duration(seconds: 4), (_) async {
         // Remove the fill to animate out
         setState(() => filled = false);
@@ -112,7 +119,16 @@ class _StartSectionState extends State<StartSection> {
     return section(id: 'start', [
       div(classes: 'container', [
         div(classes: 'cta', [
-          h1(classes: showCyrillic ? '' : 'fade-out', styles: Styles(opacity: 0.8, color: lightWhite, fontFamily: FontFamily('Fira Code, monospace'), fontSize: 40.px), [.text(showCyrillic ? 'Кебир Хани' : 'KEBIR HANI!')]),
+          h1(
+            classes: showCyrillic ? '' : 'fade-out',
+            styles: Styles(
+              opacity: 0.8,
+              color: lightWhite,
+              fontFamily: FontFamily('Fira Code, monospace'),
+              fontSize: 40.px,
+            ),
+            [.text(showCyrillic ? 'Кебир Хани' : 'KEBIR HANI!')],
+          ),
           p(
             classes: filled ? 'fill' : '',
             styles: Styles(color: whiteColor, fontFamily: FontFamily('DynaPuff')),
