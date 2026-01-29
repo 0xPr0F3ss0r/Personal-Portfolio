@@ -27,11 +27,6 @@ class Header extends StatelessComponent {
             alt: 'Logo',
             height: 150,
             width: 150,
-            // styles: Styles(
-            //   raw: {
-            //     'filter': currentMode == 'dark' ? 'invert(1) brightness(1.5)' :'',
-            //   }
-            // )
           ),
         ),
         nav([
@@ -54,7 +49,7 @@ class Header extends StatelessComponent {
   static List<StyleRule> get styles => [
     css('header').styles(
       display: .flex,
-      padding: .all(1.em),
+      padding: .symmetric(horizontal: 50.px, vertical: 10.px),
       alignItems: .center,
       gap: Gap.all(20.px),
     ),
@@ -72,10 +67,7 @@ class Header extends StatelessComponent {
       },
     ),
 
-    // css('header img.header-logo:hover').styles(
-    //   raw: {'filter': ' invert(50%) sepia(100%) saturate(1000%) hue-rotate(90deg) brightness(100%) contrast(100%)'},
-    // ),
-
+  
     //dark mode
     css('header img.header-logo.dark-mode').styles(
       raw: {

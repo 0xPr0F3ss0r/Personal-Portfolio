@@ -22,7 +22,7 @@ class App extends StatelessComponent {
 
     // Renders a <div class="main"> html element with children.
     return div(classes: 'main', [
-      // link(href: 'https://fonts.googleapis.com/css2?family=DynaPuff&display=swap', rel: 'stylesheet'),
+       link(href: 'https://fonts.googleapis.com/css2?family=DynaPuff&display=swap', rel: 'stylesheet'),
       Header(),
       Router(
         routes: [
@@ -52,13 +52,6 @@ class App extends StatelessComponent {
         alignItems: .center,
         flex: Flex(grow: 1),
       ),
-      // css('section').styles(
-      //   display: .flex,
-      //   flexDirection: .column,
-      //   justifyContent: .center,
-      //   alignItems: .center,
-      //   flex: Flex(grow: 1),
-      // ),
     ]),
     ...Header.styles,
     ...Home.styles,

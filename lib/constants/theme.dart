@@ -8,3 +8,4 @@ final Color yellowColor = Color('#E2BB77');
 final Color blueColor = Color('#2A3C58');
 final Color textColor = Color('#F5EADA');
 final Color primaryColor = Color('#2E6A6C');
+final Color lightWhite  = Color('0xFFF5F5F5');

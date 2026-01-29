@@ -31,11 +31,19 @@ class Home extends StatelessComponent {
           ]),
         ]),
       ]),
-      section(id: 'portfolio', [
+      section(id: 'projects', [
         div(classes: 'container', [
           div(classes: 'cta', [
             h1(styles: Styles(color: whiteColor), [.text('portfolio !')]),
             p(styles: Styles(color: whiteColor), [.text('flutter developer fot the third page.')]),
+          ]),
+        ]),
+      ]),
+        section(id: 'contact', [
+        div(classes: 'container', [
+          div(classes: 'cta', [
+            h1(styles: Styles(color: whiteColor), [.text('portfolio !')]),
+            p(styles: Styles(color: whiteColor), [.text('flutter developer fot the fourth page.')]),
           ]),
         ]),
       ]),
