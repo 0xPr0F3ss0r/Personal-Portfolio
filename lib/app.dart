@@ -17,7 +17,6 @@ class App extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    // print('mode value in app.dart: ${mode.value}');
     // This method is rerun every time the component is rebuilt.
 
     // Renders a <div class="main"> html element with children.

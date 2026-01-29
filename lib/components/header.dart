@@ -29,7 +29,7 @@ class Header extends StatelessComponent {
             width: 150,
           ),
         ),
-        nav([
+        nav(styles:Styles(color: currentMode == 'dark' ? Colors.white : Colors.black) ,[
           for (var route in [
             (label: 'Home', path: '/'),
             (label: 'About', path: '/about'),
@@ -67,7 +67,6 @@ class Header extends StatelessComponent {
       },
     ),
 
-  
     //dark mode
     css('header img.header-logo.dark-mode').styles(
       raw: {
@@ -78,22 +77,25 @@ class Header extends StatelessComponent {
     //light mode
     css('header img.header-logo.light-mode').styles(
       raw: {
-        //  'transition': 'filter 1s ease-in-out 0.05s',
         'filter': 'brightness(0) saturate(100%) invert(0)',
       },
     ),
     //dark mode hover
     css('header img.header-logo.dark-mode:hover').styles(
       raw: {
-        'filter': 'invert(50%) sepia(100%) saturate(1000%) hue-rotate(90deg) brightness(100%) contrast(100%)',
+        'filter': 'invert(50%) sepia(100%) saturate(1000%) hue-rotate(200deg) brightness(80%) contrast(500%)',
       },
     ),
 
     //light mode hovre
     css('header img.header-logo.light-mode:hover').styles(
       raw: {
-        'filter': 'invert(50%) sepia(100%) saturate(1000%) hue-rotate(90deg) brightness(100%) contrast(100%)',
+    'filter': 'invert(50%) sepia(100%) saturate(1000%) hue-rotate(200deg) brightness(80%) contrast(500%)',
       },
+    ),
+
+    css('nav a').styles(
+      color: .currentColor,
     ),
 
     css('nav', [
@@ -132,7 +134,6 @@ class Header extends StatelessComponent {
           height: 100.percent,
           padding: .symmetric(horizontal: 0.5.em),
           alignItems: .center,
-          color: whiteColor,
           fontFamily: FontFamily("DynaPuff"),
           fontWeight: .w700,
           textDecoration: TextDecoration(line: .none),
@@ -145,7 +146,7 @@ class Header extends StatelessComponent {
             width: 120.percent,
             height: 4.px,
             transform: Transform.translate(y: (-50).percent),
-            backgroundColor: blueColor,
+            backgroundColor:bluelight,
           ),
         ]).styles(
           display: .inlineBlock,

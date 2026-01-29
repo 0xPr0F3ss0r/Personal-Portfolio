@@ -1,14 +1,15 @@
-// ...existing code...
 import 'dart:async';
 
 import 'package:jaspr/dom.dart';
 import 'package:jaspr/jaspr.dart';
+import 'package:jaspr_riverpod/jaspr_riverpod.dart';
 import 'package:my_portfolio/constants/theme.dart';
+import 'package:my_portfolio/state_management/light-dark-mode.dart' as state_management;
 
 class StartSection extends StatefulComponent {
   @override
   State<StartSection> createState() => _StartSectionState();
-
+  
   static get styles => [
     css('#start').styles(
       display: Display.flex,
@@ -20,26 +21,9 @@ class StartSection extends StatefulComponent {
       color: whiteColor,
       textAlign: TextAlign.start,
     ),
-    
-    css('#start h1').styles(
-      margin: Spacing.zero,
-      fontSize: 1.5.rem,
-      
-      raw: {
-        '@keyframes fadeOut' :'''
-  from { opacity: 1; }
-  to { opacity: 0; }''',
 
-        'transition': 'opacity 2s cubic-bezier(0.25, 0.1, 0.25, 1)',
-        'animation': 'fadeOut 2s ease-in-out',
-        'animation-fill-mode': 'forwards',
-      },
-    ),
-    css('#start h1.fade-out').styles(
-      raw: {
-        'opacity': '0',
-      },
-    ),
+
+    // Paragraph animation
     css('#start p').styles(
       display: Display.inlineBlock,
       padding: Spacing.symmetric(horizontal: 0.5.em, vertical: 0.25.em),
@@ -47,7 +31,6 @@ class StartSection extends StatefulComponent {
       color: whiteColor,
       fontSize: 5.rem,
       raw: {
-        // initial: no fill
         'background-image': 'linear-gradient(to right, blue 0%, blue 100%)',
         'background-size': '0% 100%',
         'background-position': 'left center',
@@ -55,7 +38,6 @@ class StartSection extends StatefulComponent {
         'transition': 'background-size 500ms ease-in-out',
       },
     ),
-    // class applied to trigger the left->right fill
     css('#start p.fill').styles(
       raw: {
         'background-size': '100% 100%',
@@ -71,37 +53,37 @@ class _StartSectionState extends State<StartSection> {
   ];
   int index = 0;
   bool filled = false;
-  bool showCyrillic = true;
+  bool showRussian = true;
   Timer? _timer;
 
   @override
   void initState() {
     super.initState();
     if (kIsWeb) {
-      // Show Cyrillic first, then animate to KEBIR HANI
+      
       Future.delayed(const Duration(milliseconds: 100), () {
         setState(() => filled = true);
       });
-
-      // After 2 seconds, fade out Cyrillic and show KEBIR HANI
-      Future.delayed(const Duration(seconds: 2), () {
+      
+      // Start Russian text animation
+      Future.delayed(const Duration(milliseconds: 1600), () {
         if (mounted) {
-          setState(() => showCyrillic = false);
+          setState(() => showRussian = true);
+        }
+      });
+      // Switch to English text immediately after Russian animation
+      Future.delayed(const Duration(milliseconds: 1600), () {
+        if (mounted) {
+          setState(() => showRussian = false);
         }
       });
 
+      // Paragraph cycling
       _timer = Timer.periodic(const Duration(seconds: 4), (_) async {
-        // Remove the fill to animate out
         setState(() => filled = false);
-
-        // Wait for the animation out
         await Future.delayed(const Duration(milliseconds: 500));
-
-        // Change to next text
         index = (index + 1) % texts.length;
         setState(() {});
-
-        // Trigger fill animation
         await Future.delayed(const Duration(milliseconds: 50));
         setState(() => filled = true);
       });
@@ -116,22 +98,25 @@ class _StartSectionState extends State<StartSection> {
 
   @override
   Component build(BuildContext context) {
+    String mode  = context.watch(state_management.mode);
+    Color textColor = mode == "dark" ? whiteColor : dark;
     return section(id: 'start', [
       div(classes: 'container', [
         div(classes: 'cta', [
           h1(
-            classes: showCyrillic ? '' : 'fade-out',
+            classes: showRussian ? 'russian show' : 'english',
             styles: Styles(
-              opacity: 0.8,
-              color: lightWhite,
+              color: textColor,
               fontFamily: FontFamily('Fira Code, monospace'),
-              fontSize: 40.px,
             ),
-            [.text(showCyrillic ? 'Кебир Хани' : 'KEBIR HANI!')],
+            [.text(showRussian ? 'Кебир Хани' : 'KEBIR HANI!')],
           ),
           p(
             classes: filled ? 'fill' : '',
-            styles: Styles(color: whiteColor, fontFamily: FontFamily('DynaPuff')),
+            styles: Styles(
+              color: textColor,
+              fontFamily: FontFamily('DynaPuff'),
+            ),
             [.text(texts[index])],
           ),
         ]),
