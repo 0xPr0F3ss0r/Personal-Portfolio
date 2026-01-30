@@ -1,43 +1,36 @@
 import 'package:jaspr/dom.dart';
 import 'package:jaspr/jaspr.dart';
+import 'package:jaspr_riverpod/jaspr_riverpod.dart';
+import 'package:my_portfolio/constants/theme.dart';
+import 'package:my_portfolio/state_management/light-dark-mode.dart' as state_management;
 
-// By using the @client annotation this component will be automatically compiled to javascript and mounted
-// on the client. Therefore:
-// - this file and any imported file must be compilable for both server and client environments.
-// - this component and any child components will be built once on the server during pre-rendering and then
-//   again on the client during normal rendering.
-@client
 class About extends StatelessComponent {
   const About({super.key});
 
   @override
   Component build(BuildContext context) {
-    return const section([
-      ol([
-        li([
-          h3([.text('📖 Documentation')]),
-          .text('Jaspr\'s '),
-          a(href: 'https://docs.jaspr.site', [.text('official documentation')]),
-          .text(' provides you with all information you need to get started.'),
-        ]),
-        li([
-          h3([.text('💬 Community')]),
-          .text('Got stuck? Ask your question on the official '),
-          a(href: 'https://discord.gg/XGXrGEk4c6', [.text('Discord server')]),
-          .text(' for the Jaspr community.'),
-        ]),
-        li([
-          h3([.text('📦 Ecosystem')]),
-          .text(
-              'Get official packages and integrations for your project like jaspr_router, jaspr_tailwind or jaspr_riverpod. Find packages built for Jaspr on pub.dev using the '),
-          a(href: 'https://pub.dev/packages?q=topic%3Ajaspr', [.text('#jaspr')]),
-          .text(' topic, or publish your own.'),
-        ]),
-        li([
-          h3([.text('💙 Support Jaspr')]),
-          .text('If you like Jaspr, consider starring us on '),
-          a(href: 'https://github.com/schultek/jaspr', [.text('Github')]),
-          .text(' and tell your friends.'),
+    String currentMode = context.watch(state_management.mode);
+    Color color = currentMode == 'dark' ? Colors.white : Colors.black;
+
+    return section(classes: 'about-section', [
+      div(classes: 'container', [
+        div(classes: 'about-wrapper', [
+          // Left: Text
+          div(classes: 'about-content', [
+            h2(styles: Styles(color: color), [.text('who am i ?')]),
+            p(styles: Styles(color: color), [
+              .text(
+                'I am a passionate Flutter developer with experience in building beautiful and functional applications. I love creating seamless user experiences and writing clean, maintainable code and low-level code explorer and cybersecurity enthusiast.',
+              ),
+            ]),
+          ]),
+          // Right: Image
+          img(
+            classes: 'about-image',
+            src: 'images/personal.jpg',
+            alt: 'About Image',
+            styles: Styles(width: 500.px, height: .auto),
+          ),
         ]),
       ]),
     ]);
@@ -45,6 +38,41 @@ class About extends StatelessComponent {
 
   @css
   static List<StyleRule> get styles => [
-    css('ol').styles(maxWidth: 500.px),
+    // css('.about-section').styles(
+    //   padding: Spacing.symmetric(vertical: 50.px, horizontal: 70.px),
+    //   justifyContent: JustifyContent.center,
+    //   alignItems: AlignItems.center,
+    // ),
+    css('.about-wrapper').styles(
+      display: Display.flex,
+      flexDirection: FlexDirection.row,
+      alignItems: AlignItems.center,
+      justifyContent: JustifyContent.center,
+      gap: Gap.all(40.px),
+      flexWrap: FlexWrap.wrap,
+    ),
+    css('.about-content').
+    styles(
+      maxWidth: 450.px, 
+      flex: Flex.none
+      ),
+    css('.about-content h2').styles(
+      fontFamily: FontFamily('DynaPuff'),
+      // textAlign: TextAlign.center,
+      // justifyContent: JustifyContent.center,
+      // alignItems: AlignItems.center
+      //    marginBottom: 20.px,
+    ),
+    css('.about-content p').styles(
+      fontSize: 18.px,
+      lineHeight: Unit.em(1.7),
+      margin: Spacing.only(top: 15.px),
+    ),
+    css('.about-image').styles(
+      flex: Flex.shrink(0),
+      //width: 300.px,
+      height: .auto,
+      radius: BorderRadius.circular(10.px),
+    ),
   ];
 }

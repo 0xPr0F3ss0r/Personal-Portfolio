@@ -33,7 +33,6 @@ ServerOptions get defaultServerOptions => ServerOptions(
   clientId: 'main.client.dart.js',
   clients: {
     _header.Header: ClientTarget<_header.Header>('header'),
-    _about.About: ClientTarget<_about.About>('about'),
     _contact.contact: ClientTarget<_contact.contact>('contact'),
     _home.Home: ClientTarget<_home.Home>('home'),
     _projects.projects: ClientTarget<_projects.projects>('projects'),
