@@ -28,7 +28,7 @@ class App extends StatelessComponent {
           Route(path: '/', title: 'Home', builder: (context, state) => const Home()),
           Route(path: '/about', title: 'About', builder: (context, state) => const About()),
           Route(path: '/projects', title: 'projects', builder: (context, state) => const ProjectsSection()),
-          Route(path: '/contact', title: 'contact', builder: (context, state) => const contact()),
+          Route(path: '/contact', title: 'contact', builder: (context, state) => const Contact()),
         ],
       ),
     ]);
@@ -56,6 +56,7 @@ class App extends StatelessComponent {
     ...Home.styles,
     ...About.styles,
     ...ProjectsSection.styles,
+    ...Contact.styles,
   ];
   // Defines the css styles for elements of this component.
   //

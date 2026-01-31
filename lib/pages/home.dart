@@ -3,6 +3,7 @@ import 'package:jaspr/jaspr.dart';
 import 'package:jaspr_riverpod/jaspr_riverpod.dart';
 import 'package:my_portfolio/components/start_section.dart';
 import 'package:my_portfolio/pages/about.dart';
+import 'package:my_portfolio/pages/contact.dart';
 import 'package:my_portfolio/pages/projects.dart';
 import 'package:my_portfolio/state_management/light-dark-mode.dart' as state_management;
 
@@ -27,7 +28,8 @@ class Home extends StatelessComponent {
       [
         StartSection(),
         About(),
-       ProjectsSection()
+       ProjectsSection(),
+       Contact(),
         // section(classes: 'full-section', id: 'contact', [
         //   div(classes: 'container', [
         //     div(classes: 'cta', [

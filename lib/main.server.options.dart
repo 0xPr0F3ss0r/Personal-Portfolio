@@ -32,12 +32,12 @@ ServerOptions get defaultServerOptions => ServerOptions(
   clientId: 'main.client.dart.js',
   clients: {
     _header.Header: ClientTarget<_header.Header>('header'),
-    _contact.contact: ClientTarget<_contact.contact>('contact'),
     _home.Home: ClientTarget<_home.Home>('home'),
   },
   styles: () => [
     ..._header.Header.styles,
     ..._about.About.styles,
+    ..._contact.Contact.styles,
     ..._themtoggle.ThemeToggle.styles,
     ..._app.App.styles,
   ],
