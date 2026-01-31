@@ -5,6 +5,7 @@ import 'package:my_portfolio/components/start_section.dart';
 import 'package:my_portfolio/pages/about.dart';
 import 'package:my_portfolio/pages/contact.dart';
 import 'package:my_portfolio/pages/projects.dart';
+import 'package:my_portfolio/pages/skills.dart';
 import 'package:my_portfolio/state_management/light-dark-mode.dart' as state_management;
 
 // By using the @client annotation this component will be automatically compiled to javascript and mounted
@@ -28,6 +29,7 @@ class Home extends StatelessComponent {
       [
         StartSection(),
         About(),
+        Myskills(),
        ProjectsSection(),
        Contact(),
         // section(classes: 'full-section', id: 'contact', [

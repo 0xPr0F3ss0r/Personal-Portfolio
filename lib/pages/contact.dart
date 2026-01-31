@@ -57,9 +57,9 @@ class Contact extends StatelessComponent {
 
           /// RIGHT SIDE (social links with images)
           div(classes: 'contact-links', [
-            _socialLink('LinkedIn', 'https://linkedin.com/in/yourusername', 'images/linkedin.png', color,currentMode),
-            _socialLink('GitHub', 'https://github.com/yourusername', 'images/github12.png', color,currentMode),
-            _socialLink('Twitter', 'https://twitter.com/yourusername', 'images/twitter.png', color,currentMode),
+            _socialLink('LinkedIn', 'https://linkedin.com/in/kebir-hani', 'images/linkedin.png', color,currentMode),
+            _socialLink('GitHub', 'https://github.com/0xPr0F3ss0r', 'images/github12.png', color,currentMode),
+            _socialLink('Twitter', 'https://twitter.com/0xPr0F3ss0r', 'images/twitter.png', color,currentMode),
           ]),
         ]),
       ]),

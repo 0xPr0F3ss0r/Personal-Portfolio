@@ -7,6 +7,7 @@ import 'components/header.dart';
 import 'pages/about.dart';
 import 'pages/home.dart';
 import 'pages/projects.dart';
+import 'pages/skills.dart';
 // The main component of your application.
 //
 // By using multi-page routing, this component will only be built on the server during pre-rendering and
@@ -57,6 +58,7 @@ class App extends StatelessComponent {
     ...About.styles,
     ...ProjectsSection.styles,
     ...Contact.styles,
+    ...Myskills.styles,
   ];
   // Defines the css styles for elements of this component.
   //
