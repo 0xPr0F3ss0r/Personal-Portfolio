@@ -3,6 +3,9 @@ import 'package:jaspr/jaspr.dart';
 import 'package:jaspr_riverpod/jaspr_riverpod.dart';
 import 'package:jaspr_riverpod/legacy.dart';
 import 'package:my_portfolio/components/animated_projects_card.dart';
+import 'package:my_portfolio/components/animated_terminal.dart';
+import 'package:my_portfolio/constants/theme.dart';
+import 'package:my_portfolio/state_management/light-dark-mode.dart' as theme;
 
 class Project {
   final String id;
@@ -24,6 +27,86 @@ final projects = [
     'HTML',
     'CSS',
     'Dart',
+  ]),
+  Project('3', 'Cyber Tool', 'Cybersecurity project exploring vulnerabilities.', 'cybersecurity', 'images/cyber.png', [
+    'Python',
+    'Security',
+  ]),
+  Project('3', 'Cyber Tool', 'Cybersecurity project exploring vulnerabilities.', 'cybersecurity', 'images/cyber.png', [
+    'Python',
+    'Security',
+  ]),
+  Project('3', 'Cyber Tool', 'Cybersecurity project exploring vulnerabilities.', 'cybersecurity', 'images/cyber.png', [
+    'Python',
+    'Security',
+  ]),
+  Project('3', 'Cyber Tool', 'Cybersecurity project exploring vulnerabilities.', 'cybersecurity', 'images/cyber.png', [
+    'Python',
+    'Security',
+  ]),
+  Project('3', 'Cyber Tool', 'Cybersecurity project exploring vulnerabilities.', 'cybersecurity', 'images/cyber.png', [
+    'Python',
+    'Security',
+  ]),
+  Project('3', 'Cyber Tool', 'Cybersecurity project exploring vulnerabilities.', 'cybersecurity', 'images/cyber.png', [
+    'Python',
+    'Security',
+  ]),
+  Project('3', 'Cyber Tool', 'Cybersecurity project exploring vulnerabilities.', 'cybersecurity', 'images/cyber.png', [
+    'Python',
+    'Security',
+  ]),
+  Project('3', 'Cyber Tool', 'Cybersecurity project exploring vulnerabilities.', 'cybersecurity', 'images/cyber.png', [
+    'Python',
+    'Security',
+  ]),
+  Project('3', 'Cyber Tool', 'Cybersecurity project exploring vulnerabilities.', 'cybersecurity', 'images/cyber.png', [
+    'Python',
+    'Security',
+  ]),
+  Project('3', 'Cyber Tool', 'Cybersecurity project exploring vulnerabilities.', 'cybersecurity', 'images/cyber.png', [
+    'Python',
+    'Security',
+  ]),
+  Project('3', 'Cyber Tool', 'Cybersecurity project exploring vulnerabilities.', 'cybersecurity', 'images/cyber.png', [
+    'Python',
+    'Security',
+  ]),
+  Project('3', 'Cyber Tool', 'Cybersecurity project exploring vulnerabilities.', 'cybersecurity', 'images/cyber.png', [
+    'Python',
+    'Security',
+  ]),
+  Project('3', 'Cyber Tool', 'Cybersecurity project exploring vulnerabilities.', 'cybersecurity', 'images/cyber.png', [
+    'Python',
+    'Security',
+  ]),
+  Project('3', 'Cyber Tool', 'Cybersecurity project exploring vulnerabilities.', 'cybersecurity', 'images/cyber.png', [
+    'Python',
+    'Security',
+  ]),
+  Project('3', 'Cyber Tool', 'Cybersecurity project exploring vulnerabilities.', 'cybersecurity', 'images/cyber.png', [
+    'Python',
+    'Security',
+  ]),
+  Project('3', 'Cyber Tool', 'Cybersecurity project exploring vulnerabilities.', 'cybersecurity', 'images/cyber.png', [
+    'Python',
+    'Security',
+  ]),
+  Project('3', 'Cyber Tool', 'Cybersecurity project exploring vulnerabilities.', 'cybersecurity', 'images/cyber.png', [
+    'Python',
+    'Security',
+  ]),
+  Project('3', 'Cyber Tool', 'Cybersecurity project exploring vulnerabilities.', 'cybersecurity', 'images/cyber.png', [
+    'Python',
+    'Security',
+  ]),
+  Project('3', 'Cyber Tool', 'Cybersecurity project exploring vulnerabilities.', 'cybersecurity', 'images/cyber.png', [
+    'Python',
+    'Security',
+  ]),
+  Project('3', 'Cyber Tool', 'Cybersecurity project exploring vulnerabilities.', 'cybersecurity', 'images/cyber.png', [
+    'Python',
+    'Security',
   ]),
   Project('3', 'Cyber Tool', 'Cybersecurity project exploring vulnerabilities.', 'cybersecurity', 'images/cyber.png', [
     'Python',
@@ -56,16 +139,16 @@ class _ProjectsSectionState extends State<ProjectsSection> {
 
   @override
   Component build(BuildContext context) {
-    String currentTheme = context.watch(themeMode);
-    Color textColor = currentTheme == 'dark' ? Colors.white : Colors.black;
-    Color bgColor = currentTheme == 'dark' ? Colors.black : Colors.white;
-
+    String currentTheme = context.watch(theme.mode);
+    Color textColor = currentTheme == 'dark' ? whiteColor : Colors.black;
     return section(
       classes: 'project-section',
       styles: Styles(
-        padding: Spacing.all(50.px),
+        display: .flex,
+        flexDirection: .column,
         justifyContent: .center,
-      //  backgroundColor: bgColor,
+        alignItems: .center,
+        textAlign: .center,
       ),
       [
         // Header
@@ -79,26 +162,22 @@ class _ProjectsSectionState extends State<ProjectsSection> {
             textAlign: TextAlign.center,
           ),
           [
+            TerminalLine(),
             h2(
               styles: Styles(
-                color: Colors.white,
+                color: textColor,
+                fontFamily: FontFamily("DynaPuff"),
                 fontSize: 36.px,
                 fontWeight: FontWeight.bold,
               ),
               [.text('My Projects')],
             ),
-            p(
-              styles: Styles(
-             color: Colors.white,
-                fontSize: 18.px,
-              ),
-              [.text('Mobile apps, web apps, and cybersecurity projects')],
-            ),
-            // Tabs + Projects container
+
             div(
               classes: 'projectsContainer',
               styles: Styles(
                 display: Display.flex,
+                margin: Spacing.only(top: 150.px),
                 flexDirection: FlexDirection.column,
                 gap: Gap.all(30.px),
               ),
@@ -142,6 +221,7 @@ class _ProjectsSectionState extends State<ProjectsSection> {
                   classes: 'projects-grid',
                   styles: Styles(
                     display: Display.flex,
+                    margin: Spacing.only(top: 150.px),
                     flexWrap: FlexWrap.wrap,
                     justifyContent: JustifyContent.center,
                     gap: Gap.all(30.px),
