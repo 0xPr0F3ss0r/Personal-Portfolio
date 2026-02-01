@@ -1,8 +1,6 @@
 import 'package:jaspr/dom.dart';
 import 'package:jaspr/jaspr.dart';
-import 'package:jaspr_router/jaspr_router.dart';
 import 'package:my_portfolio/pages/contact.dart';
-
 import 'components/header.dart';
 import 'pages/about.dart';
 import 'pages/home.dart';
@@ -14,6 +12,7 @@ import 'pages/skills.dart';
 // **not** executed on the client. Instead only the nested [Home] and [About] components will be mounted on the client.
 
 class App extends StatelessComponent {
+  
   const App({super.key});
 
   @override
@@ -24,23 +23,17 @@ class App extends StatelessComponent {
     return div(classes: 'main', [
        link(href: 'https://fonts.googleapis.com/css2?family=DynaPuff&display=swap', rel: 'stylesheet'),
       Header(),
-      Router(
-        routes: [
-          Route(path: '/', title: 'Home', builder: (context, state) => const Home()),
-          Route(path: '/about', title: 'About', builder: (context, state) => const About()),
-          Route(path: '/projects', title: 'projects', builder: (context, state) => const ProjectsSection()),
-          Route(path: '/contact', title: 'contact', builder: (context, state) => const Contact()),
-        ],
-      ),
+      Home(),
     ]);
   }
 
   @css
   static List<StyleRule> get styles => [
+    
     css('.main', [
       // The '&' refers to the parent selector of a nested style rules.
       css('&').styles(
-        height: 100.vh,
+        minHeight: 100.vh,
         flexDirection: .column,
         flexWrap: .wrap,
         backgroundColor:  Colors.black ,

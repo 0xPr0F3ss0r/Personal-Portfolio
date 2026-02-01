@@ -1,7 +1,6 @@
 import 'package:jaspr/dom.dart';
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr_riverpod/jaspr_riverpod.dart';
-import 'package:jaspr_router/jaspr_router.dart';
 import 'package:my_portfolio/widgets/themtoggle.dart';
 import 'package:my_portfolio/state_management/light-dark-mode.dart' as state_management;
 import '../constants/theme.dart';
@@ -22,25 +21,30 @@ class Header extends StatelessComponent {
         div(
           styles: Styles(display: Display.flex, alignItems: .center, gap: Gap.all(0.px)),
           [
-            Link(
-          to: '/',
-          child: img(
-            classes: 'header-logo ${currentMode == 'dark' ? 'dark-mode' : 'light-mode'}',
-            src: 'images/Dinosor.png',
-            alt: 'Logo',
-            height: 150,
-            width: 150,
-          ),
-        ),
+          a(
+  href: '/',
+  [
+    img(
+      classes:
+          'header-logo ${currentMode == 'dark' ? 'dark-mode' : 'light-mode'}',
+      src: 'images/Dinosor.png',
+      alt: 'Logo',
+      height: 150,
+      width: 150,
+    ),
+  ],
+),
+
         nav(styles:Styles(color: currentMode == 'dark' ? Colors.white : Colors.black) ,[
           for (var route in [
             (label: 'Home', path: '/'),
-            (label: 'About', path: '/about'),
-            (label: 'Projects', path: '/projects'),
-            (label: 'Contact', path: '/contact'),
+            (label: 'About', path: '#section-about'),
+            (label: 'Skills', path: '#section-skills'),
+            (label: 'Projects', path: '#section-projects'),
+            (label: 'Contact', path: '#section-contact'),
           ])
             div(classes: activePath == route.path ? 'active' : null, [
-              Link(to: route.path, child: .text(route.label)),
+              a(href: route.path, [ .text(route.label)]),
             ]),
         ]),
           ]

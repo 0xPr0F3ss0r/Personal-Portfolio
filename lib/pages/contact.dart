@@ -7,14 +7,15 @@ import 'package:my_portfolio/state_management/light-dark-mode.dart'
 
 
 class Contact extends StatelessComponent {
-  const Contact({super.key});
+  final String? id;
+  const Contact({super.key, this.id});
 
   @override
   Component build(BuildContext context) {
     String currentMode = context.watch(state_management.mode);
     Color color = currentMode == 'dark' ? Colors.white : Colors.black;
 
-    return section(classes: 'contact-section', [
+    return section(id: id, classes: 'contact-section', [
       div(classes: 'container', [
         div(classes: 'contact-wrapper', [
 

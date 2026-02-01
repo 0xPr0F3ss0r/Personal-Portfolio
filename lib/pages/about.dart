@@ -1,5 +1,6 @@
 import 'dart:async';
-
+import 'package:universal_web/web.dart' as web;
+import 'package:universal_web/js_interop.dart';
 import 'package:jaspr/dom.dart';
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr_riverpod/jaspr_riverpod.dart';
@@ -7,6 +8,11 @@ import 'package:my_portfolio/constants/theme.dart';
 import 'package:my_portfolio/state_management/light-dark-mode.dart' as state_management;
 
 class About extends StatefulComponent {
+   final String id;
+   const About({super.key, required this.id});
+   
+    @override
+  State<About> createState() => _AboutState();
 
   @css
   static List<StyleRule> get styles => [
@@ -57,10 +63,8 @@ class About extends StatefulComponent {
       },
     ),
   ];
-  const About({super.key});
 
-  @override
-  State<About> createState() => _AboutState();
+ 
 }
 
 class _AboutState extends State<About> {
@@ -70,18 +74,43 @@ class _AboutState extends State<About> {
   @override
 void initState() {
   super.initState();
-  if (kIsWeb) {
-    // Trigger animation after a short delay
-    Future.delayed(const Duration(milliseconds: 100), () {
-      if (mounted) setState(() => filled = true);
-    });
-
-    // reset after 5 seconds 
-    Future.delayed(const Duration(seconds: 3), () {
-      if (mounted) setState(() => filled = false);
-    });
+  
+  if(kIsWeb){
+    Future.microtask(()=>_startObserving());
   }
 }
+
+ void _startObserving() {
+  final options = web.IntersectionObserverInit(threshold: 0.2.toJS);
+
+  final observer = web.IntersectionObserver(
+    (JSArray entries, web.IntersectionObserver obs) {
+      for (var entry in entries.toDart) {
+        final e = entry as web.IntersectionObserverEntry;
+        if (e.isIntersecting){
+          if(mounted){
+            setState(() => filled =true);
+            Future.delayed(Duration(seconds: 1), () {
+              if (mounted) setState(() => filled = false);
+            });
+
+          }else{
+            if(mounted) setState(() => filled = false);
+          }
+        }
+      }
+    }.toJS,
+    options,
+  );
+
+  final element = web.document.getElementById(component.id);
+  if (element != null) {
+    observer.observe(element);
+  } else {
+    print('⚠️ Element with id ${component.id} not found');
+  }
+}
+
 
   @override
   Component build(BuildContext context) {
@@ -89,7 +118,7 @@ void initState() {
     String currentMode = context.watch(state_management.mode);
     Color color = currentMode == 'dark' ? Colors.white : Colors.black;
 
-    return section(classes: 'about-section', [
+    return section(id: component.id,classes: 'about-section', [
       div(classes: 'container', [
         div(classes: 'about-wrapper', [
           // Left: Text

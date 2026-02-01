@@ -20,82 +20,59 @@ class Home extends StatelessComponent {
   @override
   Component build(BuildContext context) {
     String currentMode = context.watch(state_management.mode);
+    const String skillsId = 'section-skills';
+    const String aboutId  = 'section-about';
+    const String projectsId = 'section-projects';
+    const String contactId = 'section-contact';
+
     return div(
       classes: 'home-page',
       id: 'wrapper',
       styles: Styles(
+        display: Display.flex,
+        width: 100.percent, 
+        height: Unit.auto,
+        flexDirection: FlexDirection.column,                    
         backgroundColor: currentMode == 'dark' ? Colors.black : Colors.white,
       ),
       [
         StartSection(),
-        About(),
-        Myskills(),
-       ProjectsSection(),
-       Contact(),
-        // section(classes: 'full-section', id: 'contact', [
-        //   div(classes: 'container', [
-        //     div(classes: 'cta', [
-        //       h1(styles: Styles(color: whiteColor), [.text('portfolio !')]),
-        //       p(styles: Styles(color: whiteColor), [.text('flutter developer fot the fourth page.')]),
-        //     ]),
-        //   ]),
-        // ]),
+        About(id: aboutId),
+        Myskills(id: skillsId),
+        ProjectsSection(id: projectsId),
+        Contact(id: contactId),
       ],
     );
   }
 
-  // static get styles => [
-  //   // css('.home-page').styles(
-  //   //   display: Display.flex,
-  //   //   minHeight: 100.vh,
-  //   //   flexWrap: FlexWrap.wrap,
-  //   //   backgroundRepeat: BackgroundRepeat.noRepeat,
-  //   //   backgroundSize: BackgroundSize.cover,
-  //   // ),
-
-  //   css('section').styles(
-  //     display: Display.flex,
-  //     minHeight: 100.vh,
-  //     flexWrap: FlexWrap.wrap,
-  //     backgroundPosition: BackgroundPosition(offsetX: 50.percent),
-  //     backgroundRepeat: BackgroundRepeat.noRepeat,
-  //     backgroundSize: BackgroundSize.cover,
-  //     raw: {'-o-background-size': 'cover', 'webkit-background-size': 'cover', '-moz-background-size': 'cover'},
-  //   ),
-  //   // css('.container').styles(
-  //   //   width: 83.3.percent,
-  //   //   padding: Spacing.only(top: 6.rem, bottom: 6.rem),
-  //   //   margin: Spacing.only(left: Unit.auto, right: Unit.auto),
-  //   // ),
-  //   ...StartSection.styles,
-  //   //...About.styles,
-  //   StyleRule.media(
-  //     query: MediaQuery.screen(minWidth: 1000.px),
-  //     styles: [
-
-  //    ]),
-  // ];
-    static get styles => [
+  static get styles => [
+    // All sections flow naturally
     css('section').styles(
+
       display: Display.flex,
-      minHeight: 100.vh,
+      flexDirection: FlexDirection.column, 
       flexWrap: FlexWrap.wrap,
       backgroundPosition: BackgroundPosition(offsetX: 50.percent),
       backgroundRepeat: BackgroundRepeat.noRepeat,
       backgroundSize: BackgroundSize.cover,
-      raw: {'-o-background-size': 'cover', 'webkit-background-size': 'cover', '-moz-background-size': 'cover'},
+      raw: {
+        '-o-background-size': 'cover',
+        'webkit-background-size': 'cover',
+        '-moz-background-size': 'cover',
+      },
     ),
+
+    // Container inside sections
     css('.container').styles(
       width: 83.3.percent,
-      padding: Spacing.only(top: 6.rem,bottom: 6.rem),
+      padding: Spacing.only(top: 6.rem, bottom: 6.rem),
       margin: Spacing.only(left: Unit.auto, right: Unit.auto),
     ),
-     ...StartSection.styles,
-     ...About.styles,
-     ...Myskills.styles,
-     ...ProjectsSection.styles,
-     StyleRule.media(query: MediaQuery.screen(minWidth: 1000.px), styles: [
 
-     ])
+    ...StartSection.styles,
+    ...About.styles,
+    ...Myskills.styles,
+    ...ProjectsSection.styles,
+    ...Contact.styles,
   ];
 }

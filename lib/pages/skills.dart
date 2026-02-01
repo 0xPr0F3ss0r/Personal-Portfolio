@@ -1,21 +1,26 @@
 import 'dart:async';
+import 'dart:nativewrappers/_internal/vm/lib/developer.dart';
 import 'package:jaspr/dom.dart';
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr_riverpod/jaspr_riverpod.dart';
 import 'package:my_portfolio/constants/theme.dart';
 import 'package:my_portfolio/state_management/light-dark-mode.dart' as state_management;
+import 'package:universal_web/js_interop.dart';
+import 'package:universal_web/web.dart' as web;
+
 
 class Myskills extends StatefulComponent {
-  const Myskills({super.key});
+  final String id;
+  const Myskills({super.key, required this.id});
 
   @override
   State<Myskills> createState() => _MyskillsState();
 
-  @css
+   @css
   static List<StyleRule> get styles => [
     css('.skills-section').styles(
       display: Display.flex,
-      minHeight: 100.vh,
+     minHeight: 100.vh,
       padding: Spacing.symmetric(horizontal: 400.px),
       flexDirection: FlexDirection.column,
       justifyContent: JustifyContent.center,
@@ -90,28 +95,58 @@ class Myskills extends StatefulComponent {
 class _MyskillsState extends State<Myskills> {
   bool filled = false;
 
+
+
+
+    
+
   @override
   void initState() {
     super.initState();
+    
     if (kIsWeb) {
-      // Trigger animation after a short delay
-      Future.delayed(const Duration(milliseconds: 100), () {
-        if (mounted) setState(() => filled = true);
-      });
-
-      // reset after 5 seconds
-      Future.delayed(const Duration(seconds: 5), () {
-        if (mounted) setState(() => filled = false);
-      });
+          Future.microtask(() => _startObserving()
+          );
     }
   }
+void _startObserving() {
+  final options = web.IntersectionObserverInit(threshold: 0.2.toJS);
+
+  final observer = web.IntersectionObserver(
+    (JSArray entries, web.IntersectionObserver obs) {
+      for (var entry in entries.toDart) {
+        final e = entry as web.IntersectionObserverEntry;
+        if (e.isIntersecting){
+          if(mounted){
+            setState(() => filled =true);
+            Future.delayed(Duration(seconds: 1), () {
+              if (mounted) setState(() => filled = false);
+            });
+
+          }else{
+            if(mounted) setState(() => filled = false);
+          }
+        }
+      }
+    }.toJS,
+    options,
+  );
+
+  final element = web.document.getElementById(component.id);
+  if (element != null) {
+    observer.observe(element);
+  } else {
+    log('⚠️ Element with id ${component.id} not found');
+  }
+}
+
 
   @override
   Component build(BuildContext context) {
     String currentMode = context.watch(state_management.mode);
     Color color = currentMode == 'dark' ? Colors.white : Colors.black;
 
-    return section(classes: 'skills-section', [
+    return section(id:component.id,classes: 'skills-section', [
       div(classes: 'container', [
         div(classes: 'skills-wrapper', [
           div(classes: 'skills-content', [
@@ -123,14 +158,14 @@ class _MyskillsState extends State<Myskills> {
             // English paragraphs with animation
             p(styles: Styles(color: color, lineHeight: Unit.em(1.7)), [
               .text(
-                'I have 3 years of experience with Flutter and Dart, building apps and exploring advanced features. I’ve also worked with C, C++, and Python for system programming, reverse engineering, and automation. I know the basics of HTML, CSS, and JavaScript.',
+                'I have 3 years of experience with Flutter and Dart, building apps and exploring advanced features. I’ve also worked with C, C++, and Python for system programming, reverse engineering,pentesting,and automation. I know the basics of HTML, CSS, and JavaScript.',
               ),
             ]),
-            p(classes: filled ? 'fill' : '', styles: Styles(color: color, lineHeight: Unit.em(1.7)), [
+            p(styles: Styles(color: color, lineHeight: Unit.em(1.7)), [
               .text('I have a solid programming foundation that lets me quickly learn new languages or frameworks.'),
             ]),
-            p(classes: filled ? 'fill' : '', styles: Styles(color: color, lineHeight: Unit.em(1.7)), [
-              .text('Currently, I’m diving into 3D Flutter development and expanding my cybersecurity skills.'),
+            p(styles: Styles(color: color, lineHeight: Unit.em(1.7)), [
+              .text('Currently, I’m focusing on advanced Flutter development while exploring low-level programming and cybersecurity concepts related to it.'),
             ]),
           ]),
         ]),
