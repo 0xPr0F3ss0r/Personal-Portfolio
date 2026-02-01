@@ -92,6 +92,7 @@ class Home extends StatelessComponent {
     ),
      ...StartSection.styles,
      ...About.styles,
+     ...Myskills.styles,
      ...ProjectsSection.styles,
      StyleRule.media(query: MediaQuery.screen(minWidth: 1000.px), styles: [
 

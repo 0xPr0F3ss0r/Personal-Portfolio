@@ -1,12 +1,110 @@
+import 'dart:async';
 import 'package:jaspr/dom.dart';
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr_riverpod/jaspr_riverpod.dart';
 import 'package:my_portfolio/constants/theme.dart';
-import 'package:my_portfolio/state_management/light-dark-mode.dart'
-    as state_management;
+import 'package:my_portfolio/state_management/light-dark-mode.dart' as state_management;
 
-class Myskills extends StatelessComponent {
+class Myskills extends StatefulComponent {
   const Myskills({super.key});
+
+  @override
+  State<Myskills> createState() => _MyskillsState();
+
+  @css
+  static List<StyleRule> get styles => [
+    css('.skills-section').styles(
+      display: Display.flex,
+      minHeight: 100.vh,
+      padding: Spacing.symmetric(horizontal: 400.px),
+      flexDirection: FlexDirection.column,
+      justifyContent: JustifyContent.center,
+      alignItems: AlignItems.center,
+      textAlign: TextAlign.center,
+    ),
+
+    css('.skills-wrapper').styles(
+      display: Display.flex,
+      width: 100.percent,
+      maxWidth: 900.px,
+      flexDirection: FlexDirection.column,
+      justifyContent: JustifyContent.center,
+      alignItems: AlignItems.center,
+      gap: Gap.all(20.px),
+    ),
+
+    css('.skills-content').styles(
+      maxWidth: 700.px,
+    ),
+
+    css('.skills-content h1').styles(
+      margin: Spacing.only(bottom: 25.px),
+      fontFamily: FontFamily('DynaPuff'),
+    ),
+
+    // Paragraph gradient fill animation
+    css('.skills-content p').styles(
+      margin: Spacing.only(top: 15.px),
+      fontSize: 22.px,
+      lineHeight: Unit.em(1.8),
+      raw: {
+        'color': 'transparent',
+        'background-image': 'linear-gradient(to right, blue 0%, blue 100%)',
+        'background-size': '0% 100%',
+        'background-repeat': 'no-repeat',
+        'background-position': 'left center',
+        'transition': 'background-size 800ms ease-in-out',
+        '-webkit-background-clip': 'text',
+        'background-clip': 'text',
+      },
+    ),
+
+    css('.skills-content p.fill').styles(
+      raw: {
+        'background-size': '100% 100%',
+      },
+    ),
+
+    css('.skills-section h1').styles(
+      display: Display.inlineBlock,
+      padding: Spacing.symmetric(horizontal: 0.5.em, vertical: 0.25.em),
+      margin: Spacing.zero,
+      color: whiteColor,
+      fontSize: 5.rem,
+      raw: {
+        'background-image': 'linear-gradient(to right, blue 0%, blue 100%)',
+        'background-size': '0% 100%',
+        'background-position': 'left center',
+        'background-repeat': 'no-repeat',
+        'transition': 'background-size 500ms ease-in-out',
+      },
+    ),
+    css('.skills-section h1.fill').styles(
+      raw: {
+        'background-size': '100% 100%',
+      },
+    ),
+  ];
+}
+
+class _MyskillsState extends State<Myskills> {
+  bool filled = false;
+
+  @override
+  void initState() {
+    super.initState();
+    if (kIsWeb) {
+      // Trigger animation after a short delay
+      Future.delayed(const Duration(milliseconds: 100), () {
+        if (mounted) setState(() => filled = true);
+      });
+
+      // reset after 5 seconds
+      Future.delayed(const Duration(seconds: 5), () {
+        if (mounted) setState(() => filled = false);
+      });
+    }
+  }
 
   @override
   Component build(BuildContext context) {
@@ -18,77 +116,25 @@ class Myskills extends StatelessComponent {
         div(classes: 'skills-wrapper', [
           div(classes: 'skills-content', [
             h1(
+              classes: filled ? 'fill' : '',
               styles: Styles(color: BlueColor, fontSize: 50.px),
               [.text('что я знаю')],
             ),
-            // First paragraph
-            p(
-              styles: Styles(color: color, lineHeight: Unit.em(1.7)),
-              [
-                .text(
-                  'I have 3 years of experience with Flutter and Dart, building apps and exploring advanced features. I’ve also worked with C, C++, and Python for system programming, reverse engineering, and automation. I know the basics of HTML, CSS, and JavaScript.'
-                )
-              ],
-            ),
-            // Second paragraph
-            p(
-              styles: Styles(color: color, lineHeight: Unit.em(1.7)),
-              [
-                .text(
-                  'I have a solid programming foundation that lets me quickly learn new languages or frameworks.'
-                )
-              ],
-            ),
-            // Third paragraph
-            p(
-              styles: Styles(color: color, lineHeight: Unit.em(1.7)),
-              [
-                .text(
-                  'Currently, I’m diving into 3D Flutter development and expanding my cybersecurity skills.'
-                )
-              ],
-            ),
+            // English paragraphs with animation
+            p(styles: Styles(color: color, lineHeight: Unit.em(1.7)), [
+              .text(
+                'I have 3 years of experience with Flutter and Dart, building apps and exploring advanced features. I’ve also worked with C, C++, and Python for system programming, reverse engineering, and automation. I know the basics of HTML, CSS, and JavaScript.',
+              ),
+            ]),
+            p(classes: filled ? 'fill' : '', styles: Styles(color: color, lineHeight: Unit.em(1.7)), [
+              .text('I have a solid programming foundation that lets me quickly learn new languages or frameworks.'),
+            ]),
+            p(classes: filled ? 'fill' : '', styles: Styles(color: color, lineHeight: Unit.em(1.7)), [
+              .text('Currently, I’m diving into 3D Flutter development and expanding my cybersecurity skills.'),
+            ]),
           ]),
         ]),
       ]),
     ]);
   }
-
-  @css
-  static List<StyleRule> get styles => [
-        css('.skills-section').styles(
-          display: Display.flex,
-          minHeight: 100.vh,
-          padding: Spacing.symmetric(horizontal: 350.px), 
-          flexDirection: FlexDirection.column,         
-          justifyContent: JustifyContent.center,                   
-          alignItems: AlignItems.center,
-          textAlign: TextAlign.center, 
-        ),
-
-        css('.skills-wrapper').styles(
-          display: Display.flex,
-          width: 100.percent,
-          maxWidth: 900.px,
-          flexDirection: FlexDirection.column,
-          justifyContent: JustifyContent.center,
-          alignItems: AlignItems.center,
-          gap: Gap.all(20.px), 
-        ),
-
-        css('.skills-content').styles(
-          maxWidth: 700.px,
-        ),
-
-        css('.skills-content h1').styles(
-          margin: Spacing.only(bottom: 25.px),
-          fontFamily: FontFamily('DynaPuff'),
-        ),
-
-        css('.skills-content p').styles(
-          margin: Spacing.only(top: 15.px),
-          fontSize: 22.px,
-          lineHeight: Unit.em(1.8),
-        ),
-      ];
 }
