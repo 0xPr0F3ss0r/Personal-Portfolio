@@ -59,7 +59,7 @@ class About extends StatefulComponent {
     ),
     css('.about-section h3.fill').styles(
       raw: {
-        'background-size': '100%w.wi 100%',
+        'background-size': '100% 100%',
       },
     ),
   ];
