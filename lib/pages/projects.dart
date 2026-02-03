@@ -14,7 +14,7 @@ import 'package:universal_web/web.dart' as web;
 // Unique projects
 final projects = [
   Project('1', 'Restaurant App', 'Modern Restaurant app project.', 'mobile', 'images/restaurant.jpg', ['Flutter', 'Dart','Bloc State mangement']),
-  Project('2', 'Portfolio Website', 'My web app portfolio project.', 'web', 'images/portfolio1.jpg', ['HTML', 'CSS', 'Dart']),
+  Project('2', 'Portfolio Website', 'My web app portfolio project.', 'web', 'images/pott2.jpg', ['HTML', 'CSS', 'Dart']),
   Project('3', 'Network scanner', 'Cybersecurity project scan ports and  exploring vulnerabilities.', 'cybersecurity', 'images/tool21.jpg', ['Python', 'Socket']),
   Project('4', 'weather App', 'Weather forecasting mobile application.'
 , 'mobile', 'images/weather.jpg', ['Flutter', 'Dart','Weather Api']),

@@ -24,7 +24,7 @@ class VideoBackground extends StatelessComponent {
           ),
           [
             source(
-              src: '/images/animation.mp4',
+              src: '/images/balls.mp4',
               type: 'video/mp4',
             ),
           ],

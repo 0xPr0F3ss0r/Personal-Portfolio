@@ -27,7 +27,7 @@ void main() {
   // with the provided parameters and components.
   runApp(ProviderScope(
     child: Document(
-      title: 'my_portfolio',
+      title: 'KEBIR HANI | PORTFOLIO',
       styles: [
         // Special import rule to include to another css file.
         css.import('https://fonts.googleapis.com/css?family=Roboto'),
