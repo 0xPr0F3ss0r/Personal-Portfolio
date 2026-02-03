@@ -48,6 +48,9 @@ void main() {
       head: [
         // The generated flutter manifest and bootstrap script.
         link(rel: 'manifest', href: 'manifest.json'),
+        // Explicit favicon for the browser tab.
+        link(rel: 'icon', href: 'images/Dinosor.png', type: 'image/png'),
+        link(rel: 'apple-touch-icon', href: 'images/Dinosor.png'),
         script(src: "flutter_bootstrap.js", async: true),
       ],
       body: App(),
