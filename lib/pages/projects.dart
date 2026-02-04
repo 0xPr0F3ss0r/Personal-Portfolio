@@ -52,6 +52,15 @@ class ProjectsSection extends StatefulComponent {
         'background-size': '100% 100%',
       },
     ),
+    css.media(MediaQuery.screen(maxWidth:768.px), [
+      css('.project-section h2').styles(
+        fontSize: 2.rem,
+      ),
+      css('.category-tabs').styles(
+        flexDirection: FlexDirection.column,
+        gap: Gap.all(10.px),
+      ),
+    ]),
   ];
 }
 
@@ -121,7 +130,7 @@ void _startObserving() {
         flexDirection: .column,
         justifyContent: .center,
         alignItems: .center,
-        textAlign: .center, // Add some padding
+        textAlign: .center, 
       ),
       [
         // Header

@@ -44,6 +44,7 @@ class Myskills extends StatefulComponent {
     css('.skills-content h1').styles(
       margin: Spacing.only(bottom: 25.px),
       fontFamily: FontFamily('DynaPuff'),
+      fontSize: 3.5.rem,
     ),
 
     // Paragraph gradient fill animation
@@ -88,6 +89,17 @@ class Myskills extends StatefulComponent {
         'background-size': '100% 100%',
       },
     ),
+    css.media(MediaQuery.screen(maxWidth:768.px), [
+      css('.skills-section').styles(
+        padding: Spacing.symmetric(horizontal: 20.px),
+      ),
+      css('.skills-content h1').styles(
+        fontSize: 3.rem,
+      ),
+      css('.skills-content p').styles(
+        fontSize: 1.rem,
+      ),
+    ]),
   ];
 }
 

@@ -70,22 +70,22 @@ static List<StyleRule> get styles => [
   // LIGHT MODE: hide the moon (or move it out of view)
   css('.theme-toggle[data-theme="light"]', [
     css('&').styles(
-      color: Colors.black, // button color
+      color: Colors.black, 
     ),
     css('.theme-toggle__inner-moon #inner-moon-circle').styles(
-      transform: Transform.translate(x: (-50).px), // move moon out of view
-      color: Colors.transparent, // hide moon
+      transform: Transform.translate(x: (-50).px), 
+      color: Colors.transparent, 
     ),
   ]),
 
   // DARK MODE: show the moon
   css('.theme-toggle[data-theme="dark"]', [
     css('&').styles(
-      color: Colors.white, // button color
+      color: Colors.white, 
     ),
     css('.theme-toggle__inner-moon #inner-moon-circle').styles(
-      transform: Transform.translate(x:5.px), // moon visible
-      color: Colors.white, // moon color
+      transform: Transform.translate(x:5.px), 
+      color: Colors.white, 
     ),
   ]),
 ];

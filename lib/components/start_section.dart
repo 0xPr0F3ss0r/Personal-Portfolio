@@ -31,27 +31,41 @@ class StartSection extends StatefulComponent {
         'z-index': '2',
       },
     ),
-
-    // Paragraph animation
-    css('#start p').styles(
-      display: Display.inlineBlock,
-      padding: Spacing.symmetric(horizontal: 0.5.em, vertical: 0.25.em),
-      margin: Spacing.zero,
-      color: whiteColor,
-      fontSize: 5.rem,
-      raw: {
-        'background-image': 'linear-gradient(to right, blue 0%, blue 100%)',
-        'background-size': '0% 100%',
-        'background-position': 'left center',
-        'background-repeat': 'no-repeat',
-        'transition': 'background-size 500ms ease-in-out',
-      },
-    ),
-    css('#start p.fill').styles(
-      raw: {
-        'background-size': '100% 100%',
-      },
-    ),
+    css('.cta', [
+      css('h1').styles(
+        fontSize: 5.rem,
+      ),
+      css('p').styles(
+        display: Display.inlineBlock,
+        padding: Spacing.symmetric(horizontal: 0.5.em, vertical: 0.25.em),
+        margin: Spacing.zero,
+        color: whiteColor,
+        fontSize: 5.rem,
+        raw: {
+          'background-image': 'linear-gradient(to right, blue 0%, blue 100%)',
+          'background-size': '0% 100%',
+          'background-position': 'left center',
+          'background-repeat': 'no-repeat',
+          'transition': 'background-size 500ms ease-in-out',
+        },
+      ),
+      css('p.fill').styles(
+        raw: {
+          'background-size': '100% 100%',
+        },
+      ),
+      css.media(MediaQuery.screen(maxWidth: 768.px), [
+        css('h1').styles(
+          fontSize: 3.rem,
+        ),
+        css('p').styles(
+          fontSize: 2.rem,
+        ),
+        css('#start .container').styles(
+          padding: Spacing.only(left: 1.5.rem, right: 1.5.rem, top: 4.rem, bottom: 4.rem),
+        ),
+      ]),
+    ]),
     ...VideoBackground.styles,
   ];
 }

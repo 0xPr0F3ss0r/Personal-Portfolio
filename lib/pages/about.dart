@@ -27,21 +27,42 @@ class About extends StatefulComponent {
     css('.about-content').styles(maxWidth: 450.px, flex: Flex.none,),
     css('.about-content h2').styles(
       fontFamily: FontFamily('DynaPuff'),
+      fontSize: 2.rem,
     ),
     css('.about-content h3').styles(
       margin: Spacing.only(bottom: 15.px),
       fontFamily: FontFamily('DynaPuff'),
+      fontSize: 2.5.rem,
     ),
     css('.about-content p').styles(
       margin: Spacing.only(top: 15.px),
-      fontSize: 25.px,
+      fontSize: 1.25.rem,
       lineHeight: Unit.em(1.7),
     ),
     css('.about-image').styles(
       height: .auto,
       radius: BorderRadius.circular(10.px),
       flex: Flex.shrink(0),
+      width: 250.px,
     ),
+    css.media(MediaQuery.screen(maxWidth:768.px), [
+      css('.about-wrapper').styles(
+        flexDirection: FlexDirection.column,
+      ),
+      css('.about-image').styles(
+        width: 80.percent,
+        maxWidth: 300.px,
+      ),
+      css('.about-content h2').styles(
+        fontSize: 1.5.rem,
+      ),
+      css('.about-content h3').styles(
+        fontSize: 1.8.rem,
+      ),
+      css('.about-content p').styles(
+        fontSize: 1.rem,
+      ),
+    ]),
 
        css('.about-section h3').styles(
       display: Display.inlineBlock,

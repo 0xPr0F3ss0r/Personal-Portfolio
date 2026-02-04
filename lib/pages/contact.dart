@@ -16,82 +16,113 @@ class Contact extends StatefulComponent {
 
   @css
   static List<StyleRule> get styles => [
-        css('.contact-wrapper').styles(
-          display: Display.flex,
-          flexDirection: FlexDirection.row,
-          flexWrap: FlexWrap.wrap,
-          justifyContent: JustifyContent.center,
-          alignItems: AlignItems.center,
-          gap: Gap.all(60.px),
-        ),
-        css('.contact-content').styles(
-          maxWidth: 450.px,
-          flex: Flex.none,
-        ),
-        css('.contact-content h2').styles(
-          fontFamily: FontFamily('DynaPuff'),
-        ),
-        css('.contact-content h3').styles(
-          margin: Spacing.only(bottom: 15.px),
-          fontFamily: FontFamily('DynaPuff'),
-        ),
-        css('.contact-content p').styles(
-          margin: Spacing.only(top: 15.px),
-          fontSize: 25.px,
-        ),
-        css('.contact-links').styles(
-          display: Display.flex,
-          minWidth: 240.px,
-          flexDirection: FlexDirection.column,
-          gap: Gap.all(20.px),
-        ),
-        css('.contact-card').styles(
-          display: Display.flex,
-          padding: Spacing.symmetric(vertical: 12.px, horizontal: 18.px),
-          border: Border.all(color: BlueColor),
-          radius: BorderRadius.circular(12.px),
-          cursor: Cursor.pointer,
-          transition: const Transition(
-            'all',
-            curve: Curve.easeInOut,
-            duration: Duration(milliseconds: 250),
-          ),
-          alignItems: AlignItems.center,
-          textDecoration: TextDecoration.none,
-        ),
-        css('.contact-card img').styles(
-          width: 40.px,
-          height: 40.px,
-          radius: BorderRadius.circular(50.px),
-          raw: {
-            'objectFit': 'cover',
-          },
-        ),
-        css('.contact-card:hover').styles(
-          transform: Transform.translate(y: (-3).px),
-          color: Colors.white,
-          backgroundColor: BlueColor,
-        ),
-        css('.contact-section h3').styles(
-      display: Display.inlineBlock,
-      padding: Spacing.symmetric(vertical: 0.25.em),
-      margin: Spacing.zero,
-      color: whiteColor,
-      fontSize: 5.rem,
-      raw: {
-        'background-image': 'linear-gradient(to right, blue 0%, blue 100%)',
-        'background-size': '0% 100%',
-        'background-position': 'left center',
-        'background-repeat': 'no-repeat',
-        'transition': 'background-size 500ms ease-in-out',
-      },
-    ),
-    css('.contact-section h3.fill').styles(
-      raw: {
-        'background-size': '100% 100%',
-      },
-    ),
-      ];
+            css('.contact-wrapper').styles(
+              display: Display.flex,
+              flexDirection: FlexDirection.row,
+              flexWrap: FlexWrap.wrap,
+              justifyContent: JustifyContent.center,
+              alignItems: AlignItems.center,
+              gap: Gap.all(60.px),
+            ),
+            css('.contact-content').styles(
+              maxWidth: 450.px,
+              flex: Flex.none,
+            ),
+            css('.contact-content h2').styles(
+              fontFamily: FontFamily('DynaPuff'),
+              fontSize: 2.5.rem,
+            ),
+            css('.contact-content h3').styles(
+              margin: Spacing.only(bottom: 15.px),
+              fontFamily: FontFamily('DynaPuff'),
+              fontSize: 2.8.rem,
+            ),
+            css('.contact-content p').styles(
+              margin: Spacing.only(top: 15.px),
+              fontSize: 1.25.rem,
+            ),
+            css('.contact-links').styles(
+              display: Display.flex,
+              minWidth: 240.px,
+              flexDirection: FlexDirection.column,
+              gap: Gap.all(20.px),
+            ),
+            css('.contact-card').styles(
+              display: Display.flex,
+              padding: Spacing.symmetric(vertical: 12.px, horizontal: 18.px),
+              border: Border.all(color: BlueColor),
+              radius: BorderRadius.circular(12.px),
+              cursor: Cursor.pointer,
+              transition: const Transition(
+                'all',
+                curve: Curve.easeInOut,
+                duration: Duration(milliseconds: 250),
+              ),
+              alignItems: AlignItems.center,
+              textDecoration: TextDecoration.none,
+            ),
+            css('.contact-card img').styles(
+              width: 40.px,
+              height: 40.px,
+              radius: BorderRadius.circular(50.px),
+              raw: {
+                'objectFit': 'cover',
+              },
+            ),
+            css('.contact-card:hover').styles(
+              transform: Transform.translate(y: (-3).px),
+              color: Colors.white,
+              backgroundColor: BlueColor,
+            ),
+            css('.contact-section h3').styles(
+              display: Display.inlineBlock,
+              padding: Spacing.symmetric(vertical: 0.25.em),
+              margin: Spacing.zero,
+              color: whiteColor,
+              fontSize: 5.rem,
+              raw: {
+                'background-image': 'linear-gradient(to right, blue 0%, blue 100%)',
+                'background-size': '0% 100%',
+                'background-position': 'left center',
+                'background-repeat': 'no-repeat',
+                'transition': 'background-size 500ms ease-in-out',
+              },
+            ),
+            css('.contact-section h3.fill').styles(
+              raw: {
+                'background-size': '100% 100%',
+              },
+            ),
+            css.media(MediaQuery.screen(maxWidth:768.px), [
+              css('.contact-wrapper').styles(
+                flexDirection: FlexDirection.column,
+                gap: Gap.all(30.px),
+              ),
+              css('.contact-content').styles(
+                width: 90.percent,
+                maxWidth: 100.percent,
+              ),
+              css('.contact-links').styles(
+                width: 90.percent,
+                minWidth: Unit.auto,
+              ),
+              css('.contact-content h2').styles(
+                fontSize: 1.8.rem,
+              ),
+              css('.contact-content h3').styles(
+                fontSize: 2.2.rem,
+              ),
+              css('.contact-content p').styles(
+                fontSize: 1.1.rem,
+              ),
+              css('.contact-card img').styles(
+                width: 30.px,
+                height: 30.px,
+              ),
+              css('.contact-card span').styles(
+                fontSize: 16.px,
+              ),
+            ]),      ];
 
 }
 
