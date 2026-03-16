@@ -120,9 +120,7 @@ class Myskills extends StatefulComponent {
     ),
     css.media(MediaQuery.screen(maxWidth: 900.px), [
       css('.skills-wrapper').styles(
-        flexDirection: FlexDirection.column,
         alignItems: AlignItems.center,
-        textAlign: TextAlign.center,
       ),
       css('.skills-left-column').styles(
         textAlign: TextAlign.center,
@@ -138,11 +136,6 @@ class Myskills extends StatefulComponent {
         margin: Spacing.only(top: 0.px),
       ),
       css('.skills-right-column h1').styles(
-        raw: {
-          'writing-mode': 'horizontal-tb',
-          'text-orientation': 'mixed',
-          'opacity': '1',
-        },
       ),
     ]),
     css.media(MediaQuery.screen(maxWidth: 768.px), [
