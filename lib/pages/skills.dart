@@ -120,22 +120,31 @@ class Myskills extends StatefulComponent {
     ),
     css.media(MediaQuery.screen(maxWidth: 900.px), [
       css('.skills-wrapper').styles(
-        alignItems: AlignItems.center,
+        flexDirection: FlexDirection.row, // Keep columns side-by-side
+        gap: Gap.all(10.px),              // Reduce gap for smaller screens
+        padding: Spacing.symmetric(horizontal: 10.px),
+        flexWrap: FlexWrap.nowrap,
       ),
       css('.skills-left-column').styles(
+        flex: Flex(grow: 1),              // Allow left column to take available space
         textAlign: TextAlign.center,
       ),
       css('.skills-left-column p').styles(
         textAlign: TextAlign.center,
+        margin: Spacing.only(top: 10.px),
         raw: {
-          'margin': '30px auto 0',
+          'margin': '10px auto 0',
         },
       ),
       css('.skills-right-column').styles(
-        display: Display.block,
-        margin: Spacing.only(top: 0.px),
+        flex: Flex(grow: 0, shrink: 0, basis: 120.px),
+        margin: Spacing.zero,
+        raw: {
+          'min-width': '80px',
+        },
       ),
       css('.skills-right-column h1').styles(
+        fontSize: 4.5.rem, // Slightly larger vertical label for tablets
       ),
     ]),
     css.media(MediaQuery.screen(maxWidth: 768.px), [
@@ -149,7 +158,7 @@ class Myskills extends StatefulComponent {
         fontSize: 1.rem,
       ),
       css('.skills-right-column h1').styles(
-        fontSize: 3.5.rem,
+        fontSize: 4.rem,
       ),
     ]),
   ];
