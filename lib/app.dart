@@ -1,5 +1,6 @@
 import 'package:jaspr/dom.dart';
 import 'package:jaspr/jaspr.dart';
+import 'package:my_portfolio/constants/theme.dart';
 import 'package:my_portfolio/pages/contact.dart';
 import 'components/header.dart';
 import 'pages/about.dart';
@@ -36,7 +37,7 @@ class App extends StatelessComponent {
         minHeight: 100.vh,
         flexDirection: .column,
         flexWrap: .wrap,
-        backgroundColor:  Colors.black ,
+        backgroundColor: backgroundColor,
       ),
       css('.section').styles(
         //  display: Display.flex,

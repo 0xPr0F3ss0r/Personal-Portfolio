@@ -2,8 +2,8 @@ import 'package:jaspr/dom.dart';
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr_riverpod/jaspr_riverpod.dart';
 import 'package:my_portfolio/constants/theme.dart';
-import 'package:my_portfolio/state_management/light-dark-mode.dart'
-    as state_management;
+import 'package:my_portfolio/state_management/light-dark-mode.dart' as state_management;
+import 'package:my_portfolio/widgets/scrambled_text.dart';
 import 'package:universal_web/js_interop.dart';
 import 'package:universal_web/web.dart' as web;
 
@@ -15,18 +15,22 @@ class Contact extends StatefulComponent {
   State<Contact> createState() => _ContactState();
 
   @css
-  static List<StyleRule> get styles => [
+    static List<StyleRule> get styles => [
             css('.contact-wrapper').styles(
               display: Display.flex,
+              width: 100.percent,
+              maxWidth: 900.px,
               flexDirection: FlexDirection.row,
               flexWrap: FlexWrap.wrap,
-              justifyContent: JustifyContent.center,
-              alignItems: AlignItems.center,
-              gap: Gap.all(60.px),
+              justifyContent: JustifyContent.start,
+              alignItems: AlignItems.start,
+              gap: Gap.all(40.px),
+              raw: {'margin': '0 auto'},
             ),
             css('.contact-content').styles(
-              maxWidth: 450.px,
+              maxWidth: 560.px,
               flex: Flex.none,
+              raw: {'margin-top': '-40px'},
             ),
             css('.contact-content h2').styles(
               fontFamily: FontFamily('DynaPuff'),
@@ -81,7 +85,7 @@ class Contact extends StatefulComponent {
               color: whiteColor,
               fontSize: 5.rem,
               raw: {
-                'background-image': 'linear-gradient(to right, blue 0%, blue 100%)',
+                'background-image': 'linear-gradient(to right, #0080FF 0%, #0080FF 100%)',
                 'background-size': '0% 100%',
                 'background-position': 'left center',
                 'background-repeat': 'no-repeat',
@@ -93,9 +97,11 @@ class Contact extends StatefulComponent {
                 'background-size': '100% 100%',
               },
             ),
-            css.media(MediaQuery.screen(maxWidth:768.px), [
+            css.media(MediaQuery.screen(maxWidth: 900.px), [
               css('.contact-wrapper').styles(
                 flexDirection: FlexDirection.column,
+                alignItems: AlignItems.center,
+                textAlign: TextAlign.center,
                 gap: Gap.all(30.px),
               ),
               css('.contact-content').styles(
@@ -184,18 +190,13 @@ void _startObserving() {
       div(classes: 'container', [
         div(classes: 'contact-wrapper', [
 
-          /// LEFT SIDE (text)
           div(classes: 'contact-content', [
-            h3(
-              classes: filled?'fill' : '',
-              styles: Styles(color: BlueColor, fontSize: 60.px,),
-              [.text('свяжитесь со мной')],
-            ),
-
-            h2(
-              styles: Styles(color: color),
-              [.text('get in touch')],
-            ),
+            h3(classes: filled ? 'fill' : '', styles: Styles(color: BlueColor, fontSize: 60.px), [
+              ScrambledText('связаться со мной')
+            ]),
+            h2(styles: Styles(color: color), [
+               ScrambledText('get in touch')
+            ]),
 
             p(
               styles: Styles(color: color, lineHeight: Unit.em(1.7)),

@@ -3,7 +3,7 @@ import 'package:jaspr/jaspr.dart';
 import 'package:jaspr_riverpod/jaspr_riverpod.dart';
 import 'package:my_portfolio/widgets/themtoggle.dart';
 import 'package:my_portfolio/state_management/light-dark-mode.dart' as state_management;
-import '../constants/theme.dart';
+import 'package:my_portfolio/constants/theme.dart';
 
 @client
 class Header extends StatelessComponent {
@@ -118,7 +118,7 @@ class Header extends StatelessComponent {
         css('p.name').styles(
           justifyContent: .right,
   
-          color: greenColor,
+          color: primaryColor,
   
           fontFamily: FontFamily("DynaPuff"),
   

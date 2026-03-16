@@ -7,6 +7,7 @@ import 'package:my_portfolio/pages/contact.dart';
 import 'package:my_portfolio/pages/projects.dart';
 import 'package:my_portfolio/pages/skills.dart';
 import 'package:my_portfolio/state_management/light-dark-mode.dart' as state_management;
+import 'package:my_portfolio/widgets/background_text.dart';
 
 // By using the @client annotation this component will be automatically compiled to javascript and mounted
 // on the client. Therefore:
@@ -21,7 +22,7 @@ class Home extends StatelessComponent {
   Component build(BuildContext context) {
     String currentMode = context.watch(state_management.mode);
     const String skillsId = 'section-skills';
-    const String aboutId  = 'section-about';
+    const String aboutId = 'section-about';
     const String projectsId = 'section-projects';
     const String contactId = 'section-contact';
 
@@ -30,14 +31,15 @@ class Home extends StatelessComponent {
       id: 'wrapper',
       styles: Styles(
         display: Display.flex,
-        width: 100.percent, 
+        position: Position.relative(),
+        width: 100.percent,
         height: Unit.auto,
-        flexDirection: FlexDirection.column,                    
+        flexDirection: FlexDirection.column,
         backgroundColor: currentMode == 'dark' ? Colors.black : Colors.white,
       ),
       [
-     
-                StartSection(),
+        BackgroundText(),
+        StartSection(),
         About(id: aboutId),
         Myskills(id: skillsId),
         ProjectsSection(id: projectsId),
@@ -49,9 +51,8 @@ class Home extends StatelessComponent {
   static get styles => [
     // All sections flow naturally
     css('section').styles(
-
       display: Display.flex,
-      flexDirection: FlexDirection.column, 
+      flexDirection: FlexDirection.column,
       flexWrap: FlexWrap.wrap,
       backgroundPosition: BackgroundPosition(offsetX: 50.percent),
       backgroundRepeat: BackgroundRepeat.noRepeat,
@@ -70,6 +71,7 @@ class Home extends StatelessComponent {
       margin: Spacing.only(left: Unit.auto, right: Unit.auto),
     ),
 
+    ...BackgroundText.styles,
     ...StartSection.styles,
     ...About.styles,
     ...Myskills.styles,

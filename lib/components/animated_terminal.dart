@@ -1,11 +1,9 @@
-// Terminal line with blinking cursor
 import 'dart:async';
-
 import 'package:jaspr/dom.dart';
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr_riverpod/jaspr_riverpod.dart';
 import 'package:my_portfolio/constants/theme.dart';
-import 'package:my_portfolio/state_management/light-dark-mode.dart' as theme;
+import 'package:my_portfolio/state_management/light-dark-mode.dart' as theme_state;
 
 class TerminalLine extends StatefulComponent {
   const TerminalLine({super.key});
@@ -38,7 +36,7 @@ class _TerminalLineState extends State<TerminalLine> {
 
   @override
   Component build(BuildContext context) {
-    String currentTheme = context.watch(theme.mode);
+    String currentTheme = context.watch(theme_state.mode);
     Color textColor = currentTheme == 'dark' ? whiteColor : Colors.black;
 
     return p(

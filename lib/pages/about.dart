@@ -6,6 +6,7 @@ import 'package:jaspr/jaspr.dart';
 import 'package:jaspr_riverpod/jaspr_riverpod.dart';
 import 'package:my_portfolio/constants/theme.dart';
 import 'package:my_portfolio/state_management/light-dark-mode.dart' as state_management;
+import 'package:my_portfolio/widgets/scrambled_text.dart';
 
 class About extends StatefulComponent {
    final String id;
@@ -18,13 +19,19 @@ class About extends StatefulComponent {
   static List<StyleRule> get styles => [
     css('.about-wrapper').styles(
       display: Display.flex,
+      width: 100.percent,
+      maxWidth: 900.px,
       flexDirection: FlexDirection.row,
       flexWrap: FlexWrap.wrap,
-      justifyContent: JustifyContent.center,
+      justifyContent: JustifyContent.start,
       alignItems: AlignItems.center,
       gap: Gap.all(40.px),
+      raw: {'margin': '0 auto'},
     ),
-    css('.about-content').styles(maxWidth: 450.px, flex: Flex.none,),
+    css('.about-content').styles(
+      maxWidth: 560.px,
+      flex: Flex.none,
+    ),
     css('.about-content h2').styles(
       fontFamily: FontFamily('DynaPuff'),
       fontSize: 2.rem,
@@ -39,19 +46,51 @@ class About extends StatefulComponent {
       fontSize: 1.25.rem,
       lineHeight: Unit.em(1.7),
     ),
-    css('.about-image').styles(
-      height: .auto,
-      radius: BorderRadius.circular(10.px),
+
+    css('.image-wrapper').styles(
+      position: Position.relative(),
+      display: Display.inlineBlock,
       flex: Flex.shrink(0),
-      width: 250.px,
     ),
-    css.media(MediaQuery.screen(maxWidth:768.px), [
+    css('.image-frame').styles(
+      position: Position.absolute(top: 15.px, left: 15.px),
+      zIndex: ZIndex(-1),
+      width: 100.percent,
+      height: 100.percent,
+      border: Border.all(color: BlueColor, width: 2.px),
+      radius: BorderRadius.circular(10.px),
+      raw: {'transition': 'transform 0.3s ease-in-out'},
+    ),
+    css('.image-wrapper:hover .image-frame').styles(
+      raw: {'transform': 'translate(-10px, -10px)'},
+    ),
+    css('.about-image').styles(
+      display: Display.block,
+      width: 250.px,
+      height: Unit.auto,
+      border: Border.all(color: BlueColor, width: 2.px),
+      radius: BorderRadius.circular(10.px),
+      shadow: BoxShadow(
+        offsetX: 0.px,
+        offsetY: 0.px,
+        blur: 20.px,
+        color: Color.rgba(0, 128, 255, 0.2),
+      ),
+    ),
+
+    css.media(MediaQuery.screen(maxWidth: 900.px), [
       css('.about-wrapper').styles(
         flexDirection: FlexDirection.column,
+        alignItems: AlignItems.center,
+        textAlign: TextAlign.center,
       ),
-      css('.about-image').styles(
+      css('.image-wrapper').styles(
         width: 80.percent,
         maxWidth: 300.px,
+        margin: Spacing.only(bottom: 20.px),
+      ),
+      css('.about-image').styles(
+        width: 100.percent,
       ),
       css('.about-content h2').styles(
         fontSize: 1.5.rem,
@@ -71,7 +110,7 @@ class About extends StatefulComponent {
       color: whiteColor,
       fontSize: 5.rem,
       raw: {
-        'background-image': 'linear-gradient(to right, blue 0%, blue 100%)',
+        'background-image': 'linear-gradient(to right, #0080FF 0%, #0080FF 100%)',
         'background-size': '0% 100%',
         'background-position': 'left center',
         'background-repeat': 'no-repeat',
@@ -137,15 +176,18 @@ void initState() {
   Component build(BuildContext context) {
     // Watch the current mode from state management
     String currentMode = context.watch(state_management.mode);
-    Color color = currentMode == 'dark' ? Colors.white : Colors.black;
+    Color color = currentMode == 'dark' ? whiteColor : Colors.black;
 
     return section(id: component.id,classes: 'about-section', [
       div(classes: 'container', [
         div(classes: 'about-wrapper', [
-          // Left: Text
           div(classes: 'about-content', [
-            h3(classes: filled ? 'fill' : '',styles: Styles(color: BlueColor, fontSize: 60.px), [.text('кто я?')]),
-            h2(styles: Styles(color: color), [.text('who am i ?')]),
+            h3(classes: filled ? 'fill' : '', styles: Styles(color: BlueColor, fontSize: 60.px), [
+              ScrambledText('кто я?')
+            ]),
+            h2(styles: Styles(color: color), [
+               ScrambledText('who am i ?')
+            ]),
             p(styles: Styles(color: color, lineHeight: Unit.em(1.7)), [
               .text('I’m Hani, a '),
               span(
@@ -182,13 +224,14 @@ void initState() {
               .text('.'),
             ]),
           ]),
-          // Right: Image
-          img(
-            classes: 'about-image',
-            src: 'images/personal.jpg',
-            alt: 'About Image',
-            styles: Styles(width: 250.px, height: .auto),
-          ),
+          div(classes: 'image-wrapper', [
+            div(classes: 'image-frame', []),
+            img(
+              classes: 'about-image',
+              src: 'images/personal.jpg',
+              alt: 'About Image',
+            ),
+          ]),
         ]),
       ]),
     ]);

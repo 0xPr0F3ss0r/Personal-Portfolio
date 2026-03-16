@@ -42,7 +42,7 @@ class StartSection extends StatefulComponent {
         color: whiteColor,
         fontSize: 5.rem,
         raw: {
-          'background-image': 'linear-gradient(to right, blue 0%, blue 100%)',
+          'background-image': 'linear-gradient(to right, #0080FF 0%, #0080FF 100%)',
           'background-size': '0% 100%',
           'background-position': 'left center',
           'background-repeat': 'no-repeat',
