@@ -38,6 +38,7 @@ class _TerminalLineState extends State<TerminalLine> {
   Component build(BuildContext context) {
     String currentTheme = context.watch(theme_state.mode);
     Color textColor = currentTheme == 'dark' ? whiteColor : Colors.black;
+    final Color projectAccent = BlueColor;
 
     return p(
       styles: Styles(
@@ -48,12 +49,12 @@ class _TerminalLineState extends State<TerminalLine> {
       ),
       [
         span(styles: Styles(
-          color: BlueColor
+          color: projectAccent
         ),[.text('root')]),
         span([.text('@0xPr0F3ss0r:~# cd ')]),
         span(
           styles: Styles(
-            color: BlueColor,
+            color: projectAccent,
             fontWeight: FontWeight.bold,
           ),
           [.text('проекты')],
