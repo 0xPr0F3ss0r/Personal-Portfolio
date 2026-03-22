@@ -30,7 +30,15 @@ class App extends StatelessComponent {
 
   @css
   static List<StyleRule> get styles => [
-    
+    css('html, body').styles(
+      width: 100.percent,
+      minHeight: 100.vh,
+      margin: Spacing.zero,
+      padding: Spacing.zero,
+      raw: {
+        'overflow-x': 'hidden',
+      },
+    ),
     css('.main', [
       // The '&' refers to the parent selector of a nested style rules.
       css('&').styles(

@@ -66,9 +66,14 @@ class Home extends StatelessComponent {
 
     // Container inside sections
     css('.container').styles(
-      width: 83.3.percent,
+      width: 100.percent,
+      maxWidth: 83.3.percent,
       padding: Spacing.only(top: 6.rem, bottom: 6.rem),
       margin: Spacing.only(left: Unit.auto, right: Unit.auto),
+      overflow: Overflow.hidden,
+      raw: {
+        'box-sizing': 'border-box',
+      },
     ),
 
     ...BackgroundText.styles,
