@@ -97,10 +97,45 @@ class ProjectsSection extends StatefulComponent {
 class _ProjectsSectionState extends State<ProjectsSection> {
   String activeCategory = 'all';
   bool filled = false;
+  int currentProjectIndex = 0;
+  bool isTransitioning = false;
+  int animationDirection = 1;
 
   List<Project> get filteredProjects {
     if (activeCategory == 'all') return projects;
     return projects.where((project) => project.category == activeCategory).toList();
+  }
+
+  int _wrapIndex(int value, int length) {
+    if (length == 0) return 0;
+    var index = value % length;
+    if (index < 0) index += length;
+    return index;
+  }
+
+  void _navigateProjects(int direction) {
+    final listLength = filteredProjects.length;
+    if (listLength <= 1 || isTransitioning) return;
+
+    final nextIndex = _wrapIndex(currentProjectIndex + direction, listLength);
+
+    setState(() {
+      isTransitioning = true;
+      animationDirection = direction >= 0 ? 1 : -1;
+    });
+
+    Future.delayed(const Duration(milliseconds: 220), () {
+      if (!mounted) return;
+      setState(() {
+        currentProjectIndex = nextIndex;
+      });
+      Future.delayed(const Duration(milliseconds: 140), () {
+        if (!mounted) return;
+        setState(() {
+          isTransitioning = false;
+        });
+      });
+    });
   }
 
   @override
@@ -148,6 +183,12 @@ class _ProjectsSectionState extends State<ProjectsSection> {
   Component build(BuildContext context) {
     String currentTheme = context.watch(state_management.mode);
     Color textColor = currentTheme == 'dark' ? whiteColor : Colors.black;
+    final accent = BlueColor;
+    final projectList = filteredProjects;
+    final hasProjects = projectList.isNotEmpty;
+    final displayIndex = hasProjects ? _wrapIndex(currentProjectIndex, projectList.length) : 0;
+    final currentProject = hasProjects ? projectList[displayIndex] : null;
+    final canNavigate = projectList.length > 1;
 
     return section(
       id: component.id,
@@ -192,18 +233,21 @@ class _ProjectsSectionState extends State<ProjectsSection> {
                   styles: Styles(
                     display: Display.inlineFlex,
                     padding: Spacing.symmetric(vertical: 6.px, horizontal: 20.px),
-                    border: Border.all(color: activeCategory == category ? Color('#0080FF') : Colors.gray),
+                    border: Border.all(color: activeCategory == category ? accent : Colors.gray),
                     radius: BorderRadius.circular(10.px),
                     cursor: Cursor.pointer,
                     justifyContent: JustifyContent.center,
                     alignItems: AlignItems.center,
                     color: activeCategory == category ? Colors.white : Colors.gray,
-                    backgroundColor: activeCategory == category ? Color('#0080FF') : Colors.transparent,
+                    backgroundColor: activeCategory == category ? accent : Colors.transparent,
                     raw: {'transition': 'all 0.3s ease'},
                   ),
                   onClick: () {
                     setState(() {
                       activeCategory = category;
+                      currentProjectIndex = 0;
+                      isTransitioning = false;
+                      animationDirection = 1;
                     });
                   },
                   [.text(category.toUpperCase())],
@@ -211,33 +255,82 @@ class _ProjectsSectionState extends State<ProjectsSection> {
             ],
           ),
 
-          // Projects grid
-          div(
-            classes: 'projects-grid',
-            styles: Styles(
-              display: Display.flex,
-              flexWrap: FlexWrap.wrap,
-              justifyContent: JustifyContent.center,
-              gap: Gap.all(30.px),
-            ),
-            [
-              for (var i = 0; i < filteredProjects.length; i++)
-                AnimatedProjectCard(
-                  project: filteredProjects[i],
-                  index: i,
+          if (currentProject != null)
+            div(
+              classes: 'project-slider',
+              styles: Styles(
+                display: Display.flex,
+                alignItems: AlignItems.center,
+                justifyContent: JustifyContent.center,
+                gap: Gap.all(24.px),
+                margin: Spacing.only(top: 30.px),
+                flexWrap: FlexWrap.wrap,
+              ),
+              [
+                button(
+                  styles: Styles(
+                    padding: Spacing.all(14.px),
+                    radius: BorderRadius.circular(999.px),
+                    border: Border.all(color: accent),
+                    backgroundColor: Colors.transparent,
+                    color: textColor,
+                    cursor: canNavigate ? Cursor.pointer : Cursor.notAllowed,
+                    raw: {
+                      'opacity': canNavigate ? '1' : '0.3',
+                      'transition': 'opacity 0.3s ease',
+                    },
+                  ),
+                  onClick: canNavigate ? () => _navigateProjects(-1) : null,
+                  [.text('←')],
                 ),
-            ],
-          ),
+                div(
+                  styles: Styles(
+                    raw: {
+                      'width': 'min(900px, 95vw)',
+                      'display': 'flex',
+                      'justify-content': 'center',
+                      'transition': 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.45s ease',
+                      'transform': isTransitioning
+                          ? 'translateX(${animationDirection > 0 ? '-60px' : '60px'}) scale(0.95)'
+                          : 'translateX(0) scale(1)',
+                      'opacity': isTransitioning ? '0' : '1',
+                    },
+                  ),
+                  [
+                    AnimatedProjectCard(
+                      project: currentProject,
+                      index: displayIndex,
+                    ),
+                  ],
+                ),
+                button(
+                  styles: Styles(
+                    padding: Spacing.all(14.px),
+                    radius: BorderRadius.circular(999.px),
+                    border: Border.all(color: accent),
+                    backgroundColor: Colors.transparent,
+                    color: textColor,
+                    cursor: canNavigate ? Cursor.pointer : Cursor.notAllowed,
+                    raw: {
+                      'opacity': canNavigate ? '1' : '0.3',
+                      'transition': 'opacity 0.3s ease',
+                    },
+                  ),
+                  onClick: canNavigate ? () => _navigateProjects(1) : null,
+                  [.text('→')],
+                ),
+              ],
+            ),
 
           // Empty state
-          if (filteredProjects.isEmpty)
+          if (!hasProjects)
             div(
               styles: Styles(
                 margin: Spacing.only(top: 50.px),
                 textAlign: TextAlign.center,
               ),
               [
-                h3(classes: filled ? 'fill' : '', styles: Styles(color: Color('#0080FF'), fontSize: 60.px), [
+                h3(classes: filled ? 'fill' : '', styles: Styles(color: accent, fontSize: 60.px), [
                   ScrambledText('мои проекты'),
                 ]),
                 h2(styles: Styles(color: textColor), [ScrambledText('projects')]),
