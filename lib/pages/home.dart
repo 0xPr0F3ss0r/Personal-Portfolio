@@ -6,7 +6,7 @@ import 'package:my_portfolio/pages/about.dart';
 import 'package:my_portfolio/pages/contact.dart';
 import 'package:my_portfolio/pages/projects.dart';
 import 'package:my_portfolio/pages/skills.dart';
-import 'package:my_portfolio/state_management/light-dark-mode.dart' as state_management;
+import 'package:my_portfolio/state_management/light_dark_mode.dart' as state_management;
 import 'package:my_portfolio/widgets/background_text.dart';
 
 // By using the @client annotation this component will be automatically compiled to javascript and mounted

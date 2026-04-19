@@ -2,19 +2,23 @@ import 'package:jaspr/dom.dart';
 
 // ignore_for_file: non_constant_identifier_names
 
-final Color blueAccentColor = Color('#0080FF');
-final Color whiteColor = Color('#F5EADA');
-final Color yellowColor = Color('#E2BB77');
-final Color BlueColor = Color('#0080FF');
-final Color blueColor = Color('#0080FF');
-final Color textColor = Color('#F5EADA');
-final Color backgroundColor = Color('#000000');
-final Color primaryColor = Color('#0080FF');
-final Color secondaryColor = Color('#F5EADA');
-final Color accentColor = Color('#E2BB77');
-final Color blueShadow = Color('#004080');
-final Color darkShadow = Color('#000000');
-final Color lightShadow = Color('#E0E0E0');
-final Color bluelight = Color('#80C0FF');
-final Color lightWhite = Color('#F5F5F5');
-final Color dark = Color('#000000');
+final Color blueAccentColor = Color('#64ffda'); // Teal Accent
+final Color whiteColor = Color('#ccd6f6'); // Lightest Slate
+final Color yellowColor = Color('#64ffda'); 
+final Color BlueColor = Color('#64ffda'); 
+final Color blueColor = Color('#64ffda');
+final Color textColor = Color('#8892b0'); // Slate for paragraphs
+final Color backgroundColor = Color('#0a192f'); // Deep Navy
+final Color primaryColor = Color('#64ffda'); // Teal Accent
+final Color secondaryColor = Color('#ccd6f6'); // Light Slate
+final Color accentColor = Color('#64ffda'); // Teal
+final Color blueShadow = Color('#020c1b');
+final Color darkShadow = Color('#020c1b');
+final Color lightShadow = Color('#112240'); // Lightest Navy box shadows
+final Color bluelight = Color('#64ffda'); 
+final Color lightWhite = Color('#e6f1ff'); // Bright white
+final Color dark = Color('#0a192f');
+
+final FontFamily displayFont = FontFamily('"Space Grotesk", "Plus Jakarta Sans", "Inter", sans-serif');
+final FontFamily bodyFont = FontFamily('"Plus Jakarta Sans", "Inter", "Space Grotesk", sans-serif');
+final FontFamily codeFont = FontFamily('"SF Mono", "Fira Code", monospace');

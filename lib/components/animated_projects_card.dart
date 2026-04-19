@@ -4,7 +4,7 @@ import 'package:jaspr/jaspr.dart';
 import 'package:jaspr_riverpod/jaspr_riverpod.dart';
 import 'package:my_portfolio/constants/theme.dart';
 import 'package:my_portfolio/model/projects_model.dart';
-import 'package:my_portfolio/state_management/light-dark-mode.dart' as themeMode;
+import 'package:my_portfolio/state_management/light_dark_mode.dart' as theme_mode;
 
 class AnimatedProjectCard extends StatefulComponent {
   final Project project;
@@ -33,10 +33,9 @@ class _AnimatedProjectCardState extends State<AnimatedProjectCard> {
 
   @override
   Component build(BuildContext context) {
-    String currentTheme = context.watch(themeMode.mode);
+    String currentTheme = context.watch(theme_mode.mode);
     Color textColor = currentTheme == 'dark' ? Colors.white : Colors.black;
-    Color secondaryText =
-        currentTheme == 'dark' ? Colors.white.withOpacity(0.7) : Colors.black.withOpacity(0.6);
+    Color secondaryText = currentTheme == 'dark' ? Colors.white.withOpacity(0.7) : Colors.black.withOpacity(0.6);
     Color cardColor = currentTheme == 'dark' ? Color('#0B0F17') : Colors.white;
     Color borderColor = currentTheme == 'dark' ? Color('#1E2433') : Color('#E5E7EB');
     Color badgeBg = currentTheme == 'dark' ? Color('#121826') : Color('#F3F4F6');
@@ -52,11 +51,10 @@ class _AnimatedProjectCardState extends State<AnimatedProjectCard> {
       [
         div(
           styles: Styles(
-            width: 520.px,
-            maxWidth: 95.percent,
+            width: 100.percent,
             padding: Spacing.all(24.px),
-            radius: BorderRadius.circular(30.px),
-            backgroundColor: cardColor,
+            radius: BorderRadius.circular(20.px),
+            backgroundColor: Color.rgba(255, 255, 255, 0.03),
             border: Border.all(color: borderColor),
             opacity: isVisible ? 1 : 0,
             shadow: BoxShadow(
@@ -64,9 +62,7 @@ class _AnimatedProjectCardState extends State<AnimatedProjectCard> {
               offsetY: isVisible ? 20.px : 12.px,
               blur: isVisible ? 46.px : 28.px,
               spread: 0.px,
-              color: currentTheme == 'dark'
-                  ? Colors.black.withOpacity(0.45)
-                  : Colors.black.withOpacity(0.08),
+              color: currentTheme == 'dark' ? Colors.black.withOpacity(0.45) : Colors.black.withOpacity(0.08),
             ),
             cursor: Cursor.pointer,
             transition: Transition(
@@ -83,6 +79,9 @@ class _AnimatedProjectCardState extends State<AnimatedProjectCard> {
                 isVisible ? 1.0 : 0.97,
               ),
             ]),
+            raw: {
+              'clip-path': 'polygon(0 0, 100% 0, 100% 90%, 92% 100%, 0 100%)',
+            },
           ),
           [
             div(
@@ -125,13 +124,13 @@ class _AnimatedProjectCardState extends State<AnimatedProjectCard> {
                             'background-image': 'url(${component.project.image})',
                             'background-size': 'cover',
                             'background-position': 'center',
-                            'box-shadow': '0 12px 25px rgba(0,0,0,0.45)'
+                            'box-shadow': '0 12px 25px rgba(0,0,0,0.45)',
                           },
                         ),
                         [],
                       ),
                     ],
-                  )
+                  ),
               ],
             ),
 
@@ -183,9 +182,9 @@ class _AnimatedProjectCardState extends State<AnimatedProjectCard> {
                 ),
                 span(
                   styles: Styles(
-                    color: currentTheme == 'dark' ? Colors.white : Colors.black,
+                    color: primaryColor,
                     fontSize: 12.px,
-                    fontFamily: FontFamily('Space Mono'),
+                    fontFamily: codeFont,
                     raw: {
                       'letter-spacing': '0.3em',
                       'text-transform': 'uppercase',

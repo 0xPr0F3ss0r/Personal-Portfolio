@@ -1,9 +1,10 @@
+// ignore_for_file: avoid_print
 import 'package:jaspr/dom.dart';
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr_riverpod/jaspr_riverpod.dart';
 import 'package:my_portfolio/components/animated_terminal.dart';
 import 'package:my_portfolio/constants/theme.dart';
-import 'package:my_portfolio/state_management/light-dark-mode.dart' as state_management;
+import 'package:my_portfolio/state_management/light_dark_mode.dart' as state_management;
 import 'package:my_portfolio/components/animated_projects_card.dart';
 import 'package:my_portfolio/model/projects_model.dart';
 import 'package:my_portfolio/widgets/scrambled_text.dart';
@@ -63,18 +64,27 @@ class ProjectsSection extends StatefulComponent {
   State<ProjectsSection> createState() => _ProjectsSectionState();
 
   static List<StyleRule> get styles => [
+    css('.project-section').styles(
+      padding: Spacing.symmetric(vertical: 5.rem),
+      raw: {
+        'scroll-margin-top': '140px',
+      },
+    ),
     css('.project-section h2').styles(
       display: Display.inlineBlock,
       padding: Spacing.symmetric(horizontal: 0.5.em, vertical: 0.25.em),
       margin: Spacing.zero,
-      color: whiteColor,
-      fontSize: 5.rem,
+      color: Color.rgba(255, 255, 255, 0.12),
+      fontFamily: displayFont,
+      fontSize: 4.rem,
       raw: {
-        'background-image': 'linear-gradient(to right, #0080FF 0%, #0080FF 100%)',
+        'background-image': 'linear-gradient(120deg, #64ffda 0%, #ccd6f6 100%)',
         'background-size': '0% 100%',
         'background-position': 'left center',
         'background-repeat': 'no-repeat',
-        'transition': 'background-size 500ms ease-in-out',
+        '-webkit-background-clip': 'text',
+        'background-clip': 'text',
+        'transition': 'background-size 800ms ease-in-out',
       },
     ),
     css('.project-section h2.fill').styles(
@@ -82,13 +92,55 @@ class ProjectsSection extends StatefulComponent {
         'background-size': '100% 100%',
       },
     ),
+    css('.projects-lead').styles(
+      margin: Spacing.only(top: 16.px, bottom: 32.px),
+      fontSize: 1.1.rem,
+      maxWidth: 640.px,
+      color: textColor,
+      fontFamily: bodyFont,
+      raw: {
+        'margin-left': 'auto',
+        'margin-right': 'auto',
+        'text-align': 'center',
+        'text-wrap': 'balance',
+      },
+    ),
+    css('.projects-shell').styles(
+      maxWidth: 1200.px,
+      margin: Spacing.only(left: Unit.auto, right: Unit.auto),
+    ),
+    css('.projects-grid').styles(
+      display: Display.grid,
+      raw: {
+        'grid-template-columns': 'repeat(auto-fit, minmax(380px, 1fr))',
+        'gap': '40px',
+        'margin-top': '40px',
+        'padding': '0 20px',
+      },
+    ),
     css.media(MediaQuery.screen(maxWidth: 768.px), [
       css('.project-section h2').styles(
-        fontSize: 2.rem,
+        fontSize: 2.5.rem,
       ),
       css('.category-tabs').styles(
-        flexDirection: FlexDirection.column,
+        flexDirection: FlexDirection.row,
+        flexWrap: FlexWrap.wrap,
+        justifyContent: JustifyContent.center,
         gap: Gap.all(10.px),
+      ),
+      css('.projects-grid').styles(
+        raw: {
+          'grid-template-columns': '1fr',
+          'gap': '30px',
+        },
+      ),
+    ]),
+    css.media(MediaQuery.screen(maxWidth: 480.px), [
+      css('.project-section h2').styles(
+        fontSize: 1.8.rem,
+      ),
+      css('.projects-lead').styles(
+        fontSize: 0.95.rem,
       ),
     ]),
   ];
@@ -97,45 +149,10 @@ class ProjectsSection extends StatefulComponent {
 class _ProjectsSectionState extends State<ProjectsSection> {
   String activeCategory = 'all';
   bool filled = false;
-  int currentProjectIndex = 0;
-  bool isTransitioning = false;
-  int animationDirection = 1;
 
   List<Project> get filteredProjects {
     if (activeCategory == 'all') return projects;
     return projects.where((project) => project.category == activeCategory).toList();
-  }
-
-  int _wrapIndex(int value, int length) {
-    if (length == 0) return 0;
-    var index = value % length;
-    if (index < 0) index += length;
-    return index;
-  }
-
-  void _navigateProjects(int direction) {
-    final listLength = filteredProjects.length;
-    if (listLength <= 1 || isTransitioning) return;
-
-    final nextIndex = _wrapIndex(currentProjectIndex + direction, listLength);
-
-    setState(() {
-      isTransitioning = true;
-      animationDirection = direction >= 0 ? 1 : -1;
-    });
-
-    Future.delayed(const Duration(milliseconds: 220), () {
-      if (!mounted) return;
-      setState(() {
-        currentProjectIndex = nextIndex;
-      });
-      Future.delayed(const Duration(milliseconds: 140), () {
-        if (!mounted) return;
-        setState(() {
-          isTransitioning = false;
-        });
-      });
-    });
   }
 
   @override
@@ -150,21 +167,16 @@ class _ProjectsSectionState extends State<ProjectsSection> {
   }
 
   void _startObserving() {
-    final options = web.IntersectionObserverInit(threshold: 0.2.toJS);
+    final options = web.IntersectionObserverInit(threshold: 0.1.toJS);
 
     final observer = web.IntersectionObserver(
       (JSArray entries, web.IntersectionObserver obs) {
         for (var entry in entries.toDart) {
           final e = entry as web.IntersectionObserverEntry;
           if (e.isIntersecting) {
-            if (mounted) {
-              setState(() => filled = true);
-              Future.delayed(Duration(seconds: 3), () {
-                if (mounted) setState(() => filled = false);
-              });
-            } else {
-              if (mounted) setState(() => filled = false);
-            }
+            if (mounted) setState(() => filled = true);
+          } else {
+            if (mounted) setState(() => filled = false);
           }
         }
       }.toJS,
@@ -186,9 +198,6 @@ class _ProjectsSectionState extends State<ProjectsSection> {
     final accent = BlueColor;
     final projectList = filteredProjects;
     final hasProjects = projectList.isNotEmpty;
-    final displayIndex = hasProjects ? _wrapIndex(currentProjectIndex, projectList.length) : 0;
-    final currentProject = hasProjects ? projectList[displayIndex] : null;
-    final canNavigate = projectList.length > 1;
 
     return section(
       id: component.id,
@@ -203,139 +212,95 @@ class _ProjectsSectionState extends State<ProjectsSection> {
       ),
       [
         div(classes: 'container', [
-          // Header
-          h2(
-            classes: filled ? 'fill' : '',
-            styles: Styles(
-              margin: Spacing.symmetric(vertical: 20.px),
-              color: textColor,
-              fontFamily: FontFamily("DynaPuff"),
-              fontSize: 36.px,
-              fontWeight: FontWeight.bold,
+          div(classes: 'projects-shell section-shell', [
+            // Header
+            h2(
+              classes: filled ? 'fill' : '',
+              styles: Styles(
+                margin: Spacing.symmetric(vertical: 20.px),
+              ),
+              [ScrambledText('Selected Projects')],
             ),
-            [.text('Part of My Projects')],
-          ),
-          TerminalLine(),
-
-          // Category tabs
-          div(
-            classes: 'category-tabs',
-            styles: Styles(
-              display: Display.flex,
-              margin: Spacing.only(bottom: 30.px, top: 20.px),
-              justifyContent: JustifyContent.center,
-              alignItems: AlignItems.center,
-              gap: Gap.all(15.px),
-            ),
-            [
-              for (var category in categories)
-                button(
-                  styles: Styles(
-                    display: Display.inlineFlex,
-                    padding: Spacing.symmetric(vertical: 6.px, horizontal: 20.px),
-                    border: Border.all(color: activeCategory == category ? accent : Colors.gray),
-                    radius: BorderRadius.circular(10.px),
-                    cursor: Cursor.pointer,
-                    justifyContent: JustifyContent.center,
-                    alignItems: AlignItems.center,
-                    color: activeCategory == category ? Colors.white : Colors.gray,
-                    backgroundColor: activeCategory == category ? accent : Colors.transparent,
-                    raw: {'transition': 'all 0.3s ease'},
-                  ),
-                  onClick: () {
-                    setState(() {
-                      activeCategory = category;
-                      currentProjectIndex = 0;
-                      isTransitioning = false;
-                      animationDirection = 1;
-                    });
-                  },
-                  [.text(category.toUpperCase())],
+            p(
+              classes: 'projects-lead',
+              styles: Styles(
+                fontFamily: bodyFont,
+              ),
+              [
+                .text(
+                  'A curated rotation of product, Flutter, and security-oriented work presented with more editorial focus than a standard gallery.',
                 ),
-            ],
-          ),
+              ],
+            ),
+            TerminalLine(),
 
-          if (currentProject != null)
+            // Category tabs
             div(
-              classes: 'project-slider',
+              classes: 'category-tabs',
               styles: Styles(
                 display: Display.flex,
-                alignItems: AlignItems.center,
+                margin: Spacing.only(bottom: 30.px, top: 20.px),
                 justifyContent: JustifyContent.center,
-                gap: Gap.all(24.px),
-                margin: Spacing.only(top: 30.px),
-                flexWrap: FlexWrap.wrap,
+                alignItems: AlignItems.center,
+                gap: Gap.all(15.px),
               ),
               [
-                button(
-                  styles: Styles(
-                    padding: Spacing.all(14.px),
-                    radius: BorderRadius.circular(999.px),
-                    border: Border.all(color: accent),
-                    backgroundColor: Colors.transparent,
-                    color: textColor,
-                    cursor: canNavigate ? Cursor.pointer : Cursor.notAllowed,
-                    raw: {
-                      'opacity': canNavigate ? '1' : '0.3',
-                      'transition': 'opacity 0.3s ease',
-                    },
-                  ),
-                  onClick: canNavigate ? () => _navigateProjects(-1) : null,
-                  [.text('←')],
-                ),
-                div(
-                  styles: Styles(
-                    raw: {
-                      'width': 'min(900px, 95vw)',
-                      'display': 'flex',
-                      'justify-content': 'center',
-                      'transition': 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.45s ease',
-                      'transform': isTransitioning
-                          ? 'translateX(${animationDirection > 0 ? '-60px' : '60px'}) scale(0.95)'
-                          : 'translateX(0) scale(1)',
-                      'opacity': isTransitioning ? '0' : '1',
-                    },
-                  ),
-                  [
-                    AnimatedProjectCard(
-                      project: currentProject,
-                      index: displayIndex,
+                for (var category in categories)
+                  button(
+                    styles: Styles(
+                      display: Display.inlineFlex,
+                      padding: Spacing.symmetric(vertical: 6.px, horizontal: 20.px),
+                      border: Border.all(color: activeCategory == category ? accent : Colors.white.withOpacity(0.18)),
+                      radius: BorderRadius.circular(999.px),
+                      cursor: Cursor.pointer,
+                      justifyContent: JustifyContent.center,
+                      alignItems: AlignItems.center,
+                      color: activeCategory == category ? Colors.white : textColor,
+                      backgroundColor: activeCategory == category ? accent : Color.rgba(255, 255, 255, 0.03),
+                      fontFamily: displayFont,
+                      raw: {
+                        'transition': 'all 0.3s ease',
+                        'letter-spacing': '0.14em',
+                        'text-transform': 'uppercase',
+                      },
                     ),
-                  ],
-                ),
-                button(
-                  styles: Styles(
-                    padding: Spacing.all(14.px),
-                    radius: BorderRadius.circular(999.px),
-                    border: Border.all(color: accent),
-                    backgroundColor: Colors.transparent,
-                    color: textColor,
-                    cursor: canNavigate ? Cursor.pointer : Cursor.notAllowed,
-                    raw: {
-                      'opacity': canNavigate ? '1' : '0.3',
-                      'transition': 'opacity 0.3s ease',
+                    onClick: () {
+                      setState(() {
+                        activeCategory = category;
+                      });
                     },
+                    [.text(category.toUpperCase())],
                   ),
-                  onClick: canNavigate ? () => _navigateProjects(1) : null,
-                  [.text('→')],
-                ),
               ],
             ),
 
-          // Empty state
-          if (!hasProjects)
-            div(
-              styles: Styles(
-                margin: Spacing.only(top: 50.px),
-                textAlign: TextAlign.center,
+            if (hasProjects)
+              div(
+                classes: 'projects-grid',
+                [
+                  for (var i = 0; i < projectList.length; i++)
+                    AnimatedProjectCard(
+                      project: projectList[i],
+                      index: i,
+                    ),
+                ],
               ),
-              [
-                h3(classes: filled ? 'fill' : '', styles: Styles(color: accent, fontSize: 60.px), [
-                  ScrambledText('мои проекты'),
-                ]),
-                h2(styles: Styles(color: textColor), [ScrambledText('projects')]),
-              ],
-            ),
+
+            // Empty state
+            if (!hasProjects)
+              div(
+                styles: Styles(
+                  margin: Spacing.only(top: 50.px),
+                  textAlign: TextAlign.center,
+                ),
+                [
+                  h3(classes: filled ? 'fill' : '', styles: Styles(color: accent, fontSize: 60.px), [
+                    ScrambledText('мои проекты'),
+                  ]),
+                  h2(styles: Styles(color: textColor), [ScrambledText('/ projects')]),
+                ],
+              ),
+          ]),
         ]),
       ],
     );

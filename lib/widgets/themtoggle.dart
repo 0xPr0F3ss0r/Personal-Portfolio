@@ -1,14 +1,14 @@
 import 'package:jaspr/dom.dart';
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr_riverpod/jaspr_riverpod.dart';
-import 'package:my_portfolio/state_management/light-dark-mode.dart';
+import 'package:my_portfolio/state_management/light_dark_mode.dart';
 
 class ThemeToggle extends StatelessComponent {
   const ThemeToggle();
 
   @override
   Component build(BuildContext context) {
-    final currentMode = context.watch(mode); 
+    final currentMode = context.watch(mode);
     return button(
       classes: 'theme-toggle',
       attributes: {
@@ -35,7 +35,7 @@ class ThemeToggle extends StatelessComponent {
             path(
               attributes: {
                 'd':
-                    'M27.5 11.5v-7h-7L16 0l-4.5 4.5h-7v7L0 16l4.5 4.5v7h7L16 32l4.5-4.5h7v-7L32 16l-4.5-4.5zM16 25.4a9.39 9.39 0 1 1 0-18.8 9.39 9.39 0 1 1 0 18.8z'
+                    'M27.5 11.5v-7h-7L16 0l-4.5 4.5h-7v7L0 16l4.5 4.5v7h7L16 32l4.5-4.5h7v-7L32 16l-4.5-4.5zM16 25.4a9.39 9.39 0 1 1 0-18.8 9.39 9.39 0 1 1 0 18.8z',
               },
               [],
             ),
@@ -47,47 +47,47 @@ class ThemeToggle extends StatelessComponent {
   }
 
   @css
-static List<StyleRule> get styles => [
-  // button base
-  css('.theme-toggle',) .styles(
+  static List<StyleRule> get styles => [
+    // button base
+    css(
+      '.theme-toggle',
+    ).styles(
       padding: Spacing.all(0.px),
-     margin: Spacing.only(left: .auto, right:.percent(8)),
+      margin: Spacing.only(left: .auto, right: .percent(8)),
       border: Border.none,
       cursor: Cursor.pointer,
       backgroundColor: Colors.transparent,
     ),
-  
 
-  // moon inner circle
-  css('.theme-toggle__inner-moon #inner-moon-circle').styles(
-    transition: Transition(
-      'transform,color',
-      curve: Curve.cubicBezier(0.5, -0.5, 0.5, 1.5),
-      duration: Duration(milliseconds: 500),
-    ),
-  ),
-
-  // LIGHT MODE: hide the moon (or move it out of view)
-  css('.theme-toggle[data-theme="light"]', [
-    css('&').styles(
-      color: Colors.black, 
-    ),
+    // moon inner circle
     css('.theme-toggle__inner-moon #inner-moon-circle').styles(
-      transform: Transform.translate(x: (-50).px), 
-      color: Colors.transparent, 
+      transition: Transition(
+        'transform,color',
+        curve: Curve.cubicBezier(0.5, -0.5, 0.5, 1.5),
+        duration: Duration(milliseconds: 500),
+      ),
     ),
-  ]),
 
-  // DARK MODE: show the moon
-  css('.theme-toggle[data-theme="dark"]', [
-    css('&').styles(
-      color: Colors.white, 
-    ),
-    css('.theme-toggle__inner-moon #inner-moon-circle').styles(
-      transform: Transform.translate(x:5.px), 
-      color: Colors.white, 
-    ),
-  ]),
-];
+    // LIGHT MODE: hide the moon (or move it out of view)
+    css('.theme-toggle[data-theme="light"]', [
+      css('&').styles(
+        color: Colors.black,
+      ),
+      css('.theme-toggle__inner-moon #inner-moon-circle').styles(
+        transform: Transform.translate(x: (-50).px),
+        color: Colors.transparent,
+      ),
+    ]),
 
+    // DARK MODE: show the moon
+    css('.theme-toggle[data-theme="dark"]', [
+      css('&').styles(
+        color: Colors.white,
+      ),
+      css('.theme-toggle__inner-moon #inner-moon-circle').styles(
+        transform: Transform.translate(x: 5.px),
+        color: Colors.white,
+      ),
+    ]),
+  ];
 }
