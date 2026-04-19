@@ -3,7 +3,7 @@ import 'package:jaspr/dom.dart';
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr_riverpod/jaspr_riverpod.dart';
 import 'package:my_portfolio/constants/theme.dart';
-import 'package:my_portfolio/state_management/light-dark-mode.dart' as theme_state;
+import 'package:my_portfolio/state_management/light_dark_mode.dart' as theme_state;
 
 class TerminalLine extends StatefulComponent {
   const TerminalLine({super.key});
@@ -19,15 +19,15 @@ class _TerminalLineState extends State<TerminalLine> {
   @override
   void initState() {
     super.initState();
-    if(kIsWeb){
-    _timer = Timer.periodic(Duration(milliseconds: 500), (_) {
-      setState(() {
-        showCursor = !showCursor;
+    if (kIsWeb) {
+      _timer = Timer.periodic(Duration(milliseconds: 500), (_) {
+        setState(() {
+          showCursor = !showCursor;
+        });
       });
-    });
     }
   }
-  
+
   @override
   void dispose() {
     _timer?.cancel();
@@ -48,9 +48,7 @@ class _TerminalLineState extends State<TerminalLine> {
         fontSize: 20.px,
       ),
       [
-        span(styles: Styles(
-          color: projectAccent
-        ),[.text('root')]),
+        span(styles: Styles(color: projectAccent), [.text('root')]),
         span([.text('@0xPr0F3ss0r:~# cd ')]),
         span(
           styles: Styles(
@@ -60,8 +58,7 @@ class _TerminalLineState extends State<TerminalLine> {
           [.text('проекты')],
         ),
         span([.text(' && ls')]),
-       span(styles: Styles(color: showCursor ? textColor : Colors.transparent), [.text(showCursor ? '▮' : '▮')])
-
+        span(styles: Styles(color: showCursor ? textColor : Colors.transparent), [.text(showCursor ? '▮' : '▮')]),
       ],
     );
   }

@@ -25,35 +25,37 @@ void main() {
   //
   // [Document] renders the root document structure (<html>, <head> and <body>)
   // with the provided parameters and components.
-  runApp(ProviderScope(
-    child: Document(
-      title: 'KEBIR HANI | PORTFOLIO',
-      styles: [
-        // Special import rule to include to another css file.
-        css.import('https://fonts.googleapis.com/css?family=Roboto'),
-        // Each style rule takes a valid css selector and a set of styles.
-        // Styles are defined using type-safe css bindings and can be freely chained and nested.
-        css('html, body').styles(
-          width: 100.percent,
-          minHeight: 100.vh,
-          padding: .zero,
-          margin: .zero,
-          fontFamily: const .list([FontFamily('Roboto'), FontFamilies.sansSerif]),
-        ),
-        css('h1').styles(
-          margin: .unset,
-          fontSize: 4.rem,
-        ),
-      ],
-      head: [
-        // The generated flutter manifest and bootstrap script.
-        link(rel: 'manifest', href: 'manifest.json'),
-        // Explicit favicon for the browser tab.
-        link(rel: 'icon', href: 'images/Dinosor.png', type: 'image/png'),
-        link(rel: 'apple-touch-icon', href: 'images/Dinosor.png'),
-        script(src: "flutter_bootstrap.js", async: true),
-      ],
-      body: App(),
+  runApp(
+    ProviderScope(
+      child: Document(
+        title: 'KEBIR HANI | PORTFOLIO',
+        styles: [
+          // Special import rule to include to another css file.
+          css.import('https://fonts.googleapis.com/css?family=Roboto'),
+          // Each style rule takes a valid css selector and a set of styles.
+          // Styles are defined using type-safe css bindings and can be freely chained and nested.
+          css('html, body').styles(
+            width: 100.percent,
+            minHeight: 100.vh,
+            padding: .zero,
+            margin: .zero,
+            fontFamily: const .list([FontFamily('Roboto'), FontFamilies.sansSerif]),
+          ),
+          css('h1').styles(
+            margin: .unset,
+            fontSize: 4.rem,
+          ),
+        ],
+        head: [
+          // The generated flutter manifest and bootstrap script.
+          link(rel: 'manifest', href: 'manifest.json'),
+          // Explicit favicon for the browser tab.
+          link(rel: 'icon', href: 'images/Dinosor.png', type: 'image/png'),
+          link(rel: 'apple-touch-icon', href: 'images/Dinosor.png'),
+          script(src: "flutter_bootstrap.js", async: true),
+        ],
+        body: App(),
+      ),
     ),
-  ));
+  );
 }

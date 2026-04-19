@@ -6,7 +6,7 @@ import 'package:my_portfolio/pages/about.dart';
 import 'package:my_portfolio/pages/contact.dart';
 import 'package:my_portfolio/pages/projects.dart';
 import 'package:my_portfolio/pages/skills.dart';
-import 'package:my_portfolio/state_management/light-dark-mode.dart' as state_management;
+import 'package:my_portfolio/state_management/light_dark_mode.dart' as state_management;
 import 'package:my_portfolio/widgets/background_text.dart';
 
 // By using the @client annotation this component will be automatically compiled to javascript and mounted
@@ -66,9 +66,14 @@ class Home extends StatelessComponent {
 
     // Container inside sections
     css('.container').styles(
-      width: 83.3.percent,
+      width: 100.percent,
+      maxWidth: 83.3.percent,
       padding: Spacing.only(top: 6.rem, bottom: 6.rem),
       margin: Spacing.only(left: Unit.auto, right: Unit.auto),
+      overflow: Overflow.hidden,
+      raw: {
+        'box-sizing': 'border-box',
+      },
     ),
 
     ...BackgroundText.styles,

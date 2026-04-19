@@ -4,7 +4,7 @@ import 'package:web/web.dart' as web;
 
 void startObserving(String id, Function(bool) callback) {
   final options = web.IntersectionObserverInit(threshold: 0.2.toJS);
-  
+
   final observer = web.IntersectionObserver(
     (web.JSArray entries, web.IntersectionObserver observer) {
       for (var entry in entries.toDart) {

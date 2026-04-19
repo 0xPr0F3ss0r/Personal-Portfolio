@@ -13,7 +13,7 @@ class VideoBackground extends StatelessComponent {
           autoplay: true,
           muted: true,
           loop: true,
-       
+
           preload: Preload.auto,
           styles: Styles(
             width: 100.percent,
@@ -46,6 +46,5 @@ class VideoBackground extends StatelessComponent {
         'pointer-events': 'none',
       },
     ),
- 
   ];
 }
