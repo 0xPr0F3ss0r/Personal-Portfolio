@@ -236,7 +236,7 @@ class _StartSectionState extends State<StartSection> {
   ];
   int index = 0;
   bool filled = false;
-  bool showRussian = true;
+  bool showChinese = true;
   Timer? _timer;
 
   @override
@@ -247,16 +247,16 @@ class _StartSectionState extends State<StartSection> {
         setState(() => filled = true);
       });
 
-      // Start Russian text animation
+      // Start Chinese text animation
       Future.delayed(const Duration(milliseconds: 1600), () {
         if (mounted) {
-          setState(() => showRussian = true);
+          setState(() => showChinese = true);
         }
       });
-      // Switch to English text immediately after Russian animation
+      // Switch to English text immediately after Chinese animation
       Future.delayed(const Duration(milliseconds: 1600), () {
         if (mounted) {
-          setState(() => showRussian = false);
+          setState(() => showChinese = false);
         }
       });
 
@@ -289,7 +289,7 @@ class _StartSectionState extends State<StartSection> {
           div(classes: 'cta', [
             p(classes: 'hero-kicker', []),
             h1(
-              classes: showRussian ? 'russian show' : 'english',
+              classes: showChinese ? 'chinese show' : 'english',
               styles: Styles(
                 color: Colors.white,
                 fontFamily: displayFont,
@@ -298,7 +298,7 @@ class _StartSectionState extends State<StartSection> {
                   'text-transform': 'uppercase',
                 },
               ),
-              [.text(showRussian ? 'Кебир Хани' : 'Kebir Hani')],
+              [.text(showChinese ? '哈尼' : 'Kebir Hani')],
             ),
             p(
               classes: filled ? 'hero-loop fill' : 'hero-loop',

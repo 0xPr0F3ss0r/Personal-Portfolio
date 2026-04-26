@@ -18,7 +18,7 @@ class _ScrambledTextState extends State<ScrambledText> {
   String _displayTarget = "";
   String _currentText = "";
   Timer? _timer;
-  final String _chars = "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#\$%^&*()";
+  final String _chars = "天地玄黄宇宙洪荒日月盈昃辰宿列张ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#\$%^&*()";
 
   @override
   void initState() {

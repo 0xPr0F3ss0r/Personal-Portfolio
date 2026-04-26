@@ -55,7 +55,7 @@ class _TerminalLineState extends State<TerminalLine> {
             color: projectAccent,
             fontWeight: FontWeight.bold,
           ),
-          [.text('проекты')],
+          [.text('项目')],
         ),
         span([.text(' && ls')]),
         span(styles: Styles(color: showCursor ? textColor : Colors.transparent), [.text(showCursor ? '▮' : '▮')]),

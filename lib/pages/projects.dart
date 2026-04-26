@@ -295,7 +295,7 @@ class _ProjectsSectionState extends State<ProjectsSection> {
                 ),
                 [
                   h3(classes: filled ? 'fill' : '', styles: Styles(color: accent, fontSize: 60.px), [
-                    ScrambledText('мои проекты'),
+                    ScrambledText('我的项目'),
                   ]),
                   h2(styles: Styles(color: textColor), [ScrambledText('/ projects')]),
                 ],

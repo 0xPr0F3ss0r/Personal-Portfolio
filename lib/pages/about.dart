@@ -246,7 +246,7 @@ class _AboutState extends State<About> {
         div(classes: 'about-wrapper section-shell', [
           div(classes: 'about-content', [
             h3(classes: filled ? 'fill' : '', styles: Styles(fontSize: 60.px), [
-              ScrambledText('кто я?'),
+              ScrambledText('我是谁？'),
             ]),
             h2(styles: Styles(color: bluelight.withOpacity(0.8)), [ScrambledText('/ who am i?')]),
             p(styles: Styles(color: color, lineHeight: Unit.em(1.7)), [

@@ -253,7 +253,7 @@ class _ContactState extends State<Contact> {
         div(classes: 'contact-wrapper section-shell', [
           div(classes: 'contact-content', [
             h3(classes: filled ? 'fill' : '', styles: Styles(fontSize: 60.px), [
-              ScrambledText('связаться со мной'),
+              ScrambledText('联系我'),
             ]),
             h2(styles: Styles(color: color), [ScrambledText('get in touch')]),
 

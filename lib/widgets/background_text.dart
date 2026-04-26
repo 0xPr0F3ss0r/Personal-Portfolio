@@ -4,16 +4,16 @@ import 'package:my_portfolio/constants/theme.dart';
 
 class BackgroundText extends StatelessComponent {
   final List<String> words = [
-    'РАЗРАБОТКА',
-    'ПРОГРАММИРОВАНИЕ',
-    'КИБЕРБЕЗОПАСНОСТЬ',
-    'СИСТЕМЫ',
-    'ФЛАТТЕР',
-    'ТЕХНОЛОГИИ',
-    'ИНТЕРФЕЙС',
-    'КОД',
-    'АЛГОРИТМ',
-    'ДАННЫЕ',
+    '开发',
+    '编程',
+    '网络安全',
+    '系统',
+    '跨平台',
+    '技术',
+    '界面',
+    '代码',
+    '算法',
+    '数据',
   ];
 
   BackgroundText({super.key});

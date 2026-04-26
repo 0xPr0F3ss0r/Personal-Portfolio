@@ -241,7 +241,7 @@ class _MyskillsState extends State<Myskills> {
               styles: Styles(
                 margin: Spacing.only(bottom: 20.px),
               ),
-              [ScrambledText('/ мои навыки')],
+              [ScrambledText('/ 我的技能')],
             ),
             p(classes: filled ? 'fill' : '', styles: Styles(color: color, lineHeight: Unit.em(1.7)), [
               .text(

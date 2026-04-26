@@ -36,11 +36,11 @@ ServerOptions get defaultServerOptions => ServerOptions(
     _home.Home: ClientTarget<_home.Home>('home'),
   },
   styles: () => [
+    ..._app.App.styles,
     ..._header.Header.styles,
     ..._about.About.styles,
     ..._contact.Contact.styles,
     ..._skills.Myskills.styles,
     ..._themtoggle.ThemeToggle.styles,
-    ..._app.App.styles,
   ],
 );
