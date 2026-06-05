@@ -245,7 +245,7 @@ class _MyskillsState extends State<Myskills> {
             ),
             p(classes: filled ? 'fill' : '', styles: Styles(color: color, lineHeight: Unit.em(1.7)), [
               .text(
-                'My core stack is Flutter and Dart, where I focus on responsive layouts, strong visual hierarchy, and production-minded implementation. '
+                'My core stack is Flutter and Dart, where I focus on responsive layouts,good architercture of the project. '
                 'Alongside that, I use C, C++, and Python when the work leans toward systems programming, reverse engineering, automation, or security research.',
               ),
             ]),
