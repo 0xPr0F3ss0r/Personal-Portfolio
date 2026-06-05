@@ -304,7 +304,7 @@ class _ContactState extends State<Contact> {
           div(classes: 'contact-links', [
             _socialLink('LinkedIn', 'https://linkedin.com/in/kebir-hani', 'images/linkedin.png', color, currentMode),
             _socialLink('GitHub', 'https://github.com/0xPr0F3ss0r', 'images/github12.png', color, currentMode),
-            _socialLink('Twitter', 'https://twitter.com/Hani_Dev_', 'images/twitter.png', color, currentMode),
+            _socialLink('Twitter', 'https://twitter.com/x_0xPROF3SSOR', 'images/twitter.png', color, currentMode),
           ]),
         ]),
       ]),

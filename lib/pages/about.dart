@@ -282,7 +282,7 @@ class _AboutState extends State<About> {
                 ),
                 [.text('cybersecurity')],
               ),
-              .text('. My approach is equal parts craft, architecture, and visual storytelling.'),
+              .text('. I like every things about programming and low level stuff and learning new skills in field of tech .'),
             ]),
             div(
               classes: 'about-highlights',
